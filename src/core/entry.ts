@@ -15,6 +15,8 @@ export const createApp = (config: EntryParams) => {
   const routesMap = controllerFactory([IndexController]);
   routesMap.forEach(({ path, method, handler }) => {
     (<any>router)[method](path, handler);
+    console.log(path);
+    
   });
   app.use(router.routes()).use(router.allowedMethods());
   app.listen(port, () => {

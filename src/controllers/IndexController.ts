@@ -1,7 +1,8 @@
 import { AbstractController } from "../core/AbstractController";
-import { Controller, Get, Post, Put } from "../decorators";
+import { Controller, Get } from "../decorators";
+import { NextFunc, RouterCtx } from '../utils';
 
-@Controller("/api")
+@Controller("/")
 export class IndexController extends AbstractController {
   age: number;
   constructor() {
@@ -9,8 +10,8 @@ export class IndexController extends AbstractController {
     this.age = 999;
   }
 
-  @Get("/index")
-  index() {
-    console.log(this.age)
+  @Get("/")
+  index(ctx: RouterCtx, next: NextFunc) {
+    ctx.body='hello world'
   }
 }

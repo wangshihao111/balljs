@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import {
   CONTROLLER_DECORATOR_KEY,
+  getUrlPath,
   RequestMethodDecoratorKey,
   RequestMethodEnum,
 } from "../utils";
@@ -25,7 +26,7 @@ export function controllerFactory(controllers: (new () => any)[]) {
           const metadataKey = RequestMethodDecoratorKey[method];
           if (Reflect.hasMetadata(metadataKey, controller, key)) {
             const path = Reflect.getMetadata(metadataKey, controller, key);            
-            routesMap.push({path: `${basePath}${path}`, method: method.toLowerCase(), handler: value.bind(controller)})
+            routesMap.push({path: getUrlPath(basePath, path), method: method.toLowerCase(), handler: value.bind(controller)})
           }
         });
       }
