@@ -13,6 +13,7 @@
   "dependencies": {
     "@koa/router": "^10.0.0",
     "@types/koa": "^2.13.1",
+    "chalk": "^4.1.0",
     "globby": "^11.0.3",
     "koa": "^2.13.1",
     "lodash": "^4.17.21",
@@ -21,6 +22,7 @@
     "typescript": "^4.2.3"
   },
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
     "@types/globby": "^9.1.0",
     "@types/koa__router": "^8.0.4",
     "@types/lodash": "^4.14.168",
