@@ -7,7 +7,7 @@ import {
 } from "../utils";
 
 export function controllerFactory(controllers: (new () => any)[]) {
-  const routesMap: {path: string, method: string, handler: any}[]= [];
+  const routesMap: { path: string; method: string; handler: any }[] = [];
   controllers.forEach((Controller) => {
     if (!Reflect.hasOwnMetadata(CONTROLLER_DECORATOR_KEY, Controller)) {
       throw new Error("Invalid Controller.");
@@ -25,8 +25,12 @@ export function controllerFactory(controllers: (new () => any)[]) {
         ].forEach((method) => {
           const metadataKey = RequestMethodDecoratorKey[method];
           if (Reflect.hasMetadata(metadataKey, controller, key)) {
-            const path = Reflect.getMetadata(metadataKey, controller, key);            
-            routesMap.push({path: getUrlPath(basePath, path), method: method.toLowerCase(), handler: value.bind(controller)})
+            const path = Reflect.getMetadata(metadataKey, controller, key);
+            routesMap.push({
+              path: getUrlPath(basePath, path),
+              method: method.toLowerCase(),
+              handler: value.bind(controller),
+            });
           }
         });
       }
@@ -34,4 +38,3 @@ export function controllerFactory(controllers: (new () => any)[]) {
   });
   return routesMap;
 }
-

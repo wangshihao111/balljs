@@ -1,22 +1,24 @@
 import Koa from "koa";
 import Router from "@koa/router";
 import { controllerFactory } from "./controllerFactory";
-import { IndexController } from "../controllers/IndexController";
+import { ControllerLoader } from "./ControllerLoader";
 
 export interface EntryParams {
   port: number;
-  // routes: any[];
+  controllers?: any[];
 }
 
-export const createApp = (config: EntryParams) => {
-  const { port } = config;
+export const createApp = async (config: EntryParams) => {
+  const { port, controllers = [] } = config;
   const app = new Koa();
   const router = new Router();
-  const routesMap = controllerFactory([IndexController]);
+
+  const routesMap = controllerFactory(
+    [...(await new ControllerLoader(process.cwd()).load()), ...controllers]
+  );
+
   routesMap.forEach(({ path, method, handler }) => {
     (<any>router)[method](path, handler);
-    console.log(path);
-    
   });
   app.use(router.routes()).use(router.allowedMethods());
   app.listen(port, () => {
