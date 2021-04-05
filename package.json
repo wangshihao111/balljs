@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --exec ts-node src/index"
+    "dev": "node scripts/dev.js",
+    "server": "nodemon --exec cross-env MONKEY_DEV=true ts-node src/index"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@koa/router": "^10.0.0",
-    "@types/koa": "^2.13.1",
     "chalk": "^4.1.0",
     "globby": "^11.0.3",
     "koa": "^2.13.1",
@@ -24,8 +24,11 @@
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/globby": "^9.1.0",
+    "@types/koa": "^2.13.1",
     "@types/koa__router": "^8.0.4",
     "@types/lodash": "^4.14.168",
-    "@types/reflect-metadata": "^0.1.0"
+    "@types/reflect-metadata": "^0.1.0",
+    "cross-env": "^7.0.3",
+    "ts-node": "^9.1.1"
   }
 }
