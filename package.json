@@ -1,34 +1,27 @@
 {
-  "name": "monkey-server",
+  "name": "monkey",
+  "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node scripts/dev.js",
-    "server": "nodemon --exec cross-env MONKEY_DEV=true ts-node src/index"
+    "start": "nodemon --exec cross-env MONKEY_DEV=true ts-node src/index"
   },
   "keywords": [],
+  "workspaces": [
+    "packages/*"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@koa/router": "^10.0.0",
-    "chalk": "^4.1.0",
-    "globby": "^11.0.3",
-    "koa": "^2.13.1",
-    "lodash": "^4.17.21",
-    "reflect-metadata": "^0.1.13",
-    "some-di": "^0.0.7",
-    "tslib": "^2.1.0",
     "typescript": "^4.2.3"
   },
   "devDependencies": {
-    "@types/globby": "^9.1.0",
-    "@types/koa": "^2.13.1",
-    "@types/koa__router": "^8.0.4",
-    "@types/lodash": "^4.14.168",
-    "@types/reflect-metadata": "^0.1.0",
     "cross-env": "^7.0.3",
+    "lerna": "^3.22.1",
+    "rimraf": "^3.0.2",
     "ts-node": "^9.1.1"
   }
 }

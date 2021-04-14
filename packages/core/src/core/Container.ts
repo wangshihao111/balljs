@@ -112,4 +112,11 @@ export class Container {
     });
     return routesMap;
   }
+
+  createRequestHandler(interceptors: any[]) {
+
+    return (ctx: RouterCtx, next: NextFunc) => {
+
+    }
+  }
 }

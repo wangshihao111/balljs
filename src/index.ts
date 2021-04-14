@@ -1,6 +1,3 @@
-import "reflect-metadata";
+import { Server } from "@monkey/core";
 
-import { IndexController } from "./controllers/IndexController";
-import { Server } from "./core";
-
-new Server({ controllers: [IndexController] }).start(3030);
+new Server({}).start(3030);

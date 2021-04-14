@@ -1,6 +1,6 @@
-import { AbstractController } from "../core/AbstractController";
-import { Controller, Get, useInterceptor } from "../decorators";
-import { NextFunc, RouterCtx } from '../utils';
+import { AbstractController } from "@monkey/core/src/core/AbstractController";
+import { Controller, Get, useInterceptor } from "@monkey/core/src/decorators";
+import { NextFunc, RouterCtx } from '@monkey/core/src/utils';
 
 @useInterceptor([])
 @Controller("/")
