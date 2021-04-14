@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepublish": "rimraf lib && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,9 +14,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/commander": "^2.12.2"
+    "@types/commander": "^2.12.2",
+    "@types/fs-extra": "^9.0.11"
   },
   "dependencies": {
-    "commander": "^7.2.0"
+    "@guku/utils": "^1.0.0",
+    "commander": "^7.2.0",
+    "fs-extra": "^9.1.0"
   }
 }
