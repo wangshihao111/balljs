@@ -1,5 +1,5 @@
 {
-  "name": "decorator-demo",
+  "name": "monkey-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,11 +18,11 @@
     "koa": "^2.13.1",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13",
+    "some-di": "^0.0.7",
     "tslib": "^2.1.0",
     "typescript": "^4.2.3"
   },
   "devDependencies": {
-    "@types/chalk": "^2.2.0",
     "@types/globby": "^9.1.0",
     "@types/koa": "^2.13.1",
     "@types/koa__router": "^8.0.4",
