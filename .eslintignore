@@ -1,3 +1,5 @@
 dist/
 lib/
 bin/
+scripts/
+.eslintrc.js

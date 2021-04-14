@@ -1,11 +1,13 @@
 const { spawn } = require("child_process");
+const {readdirSync} = require('fs');
+const path = require('path');
 
-const tasks = ["tsc -w", "yarn server"];
+const packages = readdirSync(path.resolve(__dirname, '../packages')).map(p => path.resolve(__dirname, '../packages', p));
 
-tasks.forEach((task) => {
-  spawn(task, {
+packages.forEach((p) => {
+  spawn('tsc -w', {
     shell: true,
-    cwd: process.cwd(),
+    cwd: p,
     stdio: ["ignore", "inherit", "inherit"],
   });
 });

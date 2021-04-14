@@ -6,8 +6,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node scripts/dev.js",
-    "start": "nodemon --exec cross-env MONKEY_DEV=true ts-node src/index"
+    "watch": "node scripts/dev.js",
+    "start": "nodemon --exec cross-env MONKEY_DEV=true ts-node src/index",
+    "start:prod": "node packages/cli/bin/cli start",
+    "build:prod": "node packages/cli/bin/cli build"
   },
   "keywords": [],
   "workspaces": [
