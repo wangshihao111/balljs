@@ -1,4 +1,8 @@
-import { RequestMethods, RequestMethodDecoratorKey } from "../utils";
+import {
+  RequestMethods,
+  REQUEST_METHOD_DECORATOR_KEY,
+  RequestMethodDecoratorValue,
+} from "../utils";
 
 function decoratorFactory(method: RequestMethods) {
   return (path: string) => (
@@ -6,7 +10,16 @@ function decoratorFactory(method: RequestMethods) {
     key: string,
     descriptor: PropertyDescriptor
   ) => {
-    Reflect.defineMetadata(RequestMethodDecoratorKey[method], path, target, key);
+    const decoratorValue: RequestMethodDecoratorValue = {
+      method,
+      path,
+    };
+    Reflect.defineMetadata(
+      REQUEST_METHOD_DECORATOR_KEY,
+      decoratorValue,
+      target,
+      key
+    );
   };
 }
 

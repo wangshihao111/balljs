@@ -1,6 +1,6 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 
-import { IndexController } from './controllers/IndexController';
-import { createApp } from './core/entry';
+import { IndexController } from "./controllers/IndexController";
+import { Server } from "./core";
 
-createApp({port: 4200, controllers: [IndexController]});
+new Server({ controllers: [IndexController] }).start(3030);

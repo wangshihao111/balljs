@@ -6,3 +6,8 @@ export type RequestMethods = 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH';
 export type RouterCtx = ParameterizedContext<any, Router.RouterParamContext<any, {}>, any>;
 
 export type NextFunc = Next;
+
+export interface RequestMethodDecoratorValue {
+  method: RequestMethods;
+  path: string;
+}

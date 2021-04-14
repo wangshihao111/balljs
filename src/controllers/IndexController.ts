@@ -1,7 +1,8 @@
 import { AbstractController } from "../core/AbstractController";
-import { Controller, Get } from "../decorators";
+import { Controller, Get, useInterceptor } from "../decorators";
 import { NextFunc, RouterCtx } from '../utils';
 
+@useInterceptor([])
 @Controller("/")
 export class IndexController extends AbstractController {
   age: number;

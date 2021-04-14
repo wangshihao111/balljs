@@ -7,13 +7,13 @@ export function createLogger(namespace: string) {
         console.log(`${chalk.redBright(namespace)}: `, ...args);
     },
     info(...args: any[]) {
-      console.log(`Info: `, ...args);
+      console.log(chalk.blueBright(`Info:`, ...args));
     },
     success(...args: any[]) {
-      console.log(`Success: `, ...args);
+      console.log(chalk.greenBright(...args));
     },
     error(...args: any[]) {
-      console.log(`Error: `, ...args);
+      console.log(chalk.red(`Error:`, ...args));
     },
   };
 }
