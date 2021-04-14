@@ -5,7 +5,7 @@ import {
   useInterceptor,
   NextFunc,
   RouterCtx,
-} from '@monkey/core';
+} from '@guku/core';
 
 @useInterceptor([])
 @Controller('/')
