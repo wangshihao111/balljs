@@ -1,9 +1,14 @@
-import { AbstractController } from "@monkey/core/src/core/AbstractController";
-import { Controller, Get, useInterceptor } from "@monkey/core/src/decorators";
-import { NextFunc, RouterCtx } from '@monkey/core/src/utils';
+import {
+  AbstractController,
+  Controller,
+  Get,
+  useInterceptor,
+  NextFunc,
+  RouterCtx,
+} from '@monkey/core';
 
 @useInterceptor([])
-@Controller("/")
+@Controller('/')
 export class IndexController extends AbstractController {
   age: number;
   constructor() {
@@ -11,8 +16,8 @@ export class IndexController extends AbstractController {
     this.age = 999;
   }
 
-  @Get("/")
+  @Get('/')
   index(ctx: RouterCtx, next: NextFunc) {
-    ctx.body='hello world'
+    ctx.body = 'hello world';
   }
 }
