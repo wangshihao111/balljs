@@ -19,6 +19,7 @@ import {
   SERVICE_DECORATOR_KEY,
 } from '../utils';
 import { initIoc, inject } from './ioc';
+import { CommonInterceptor } from '../decorators';
 
 const logger = createLogger('Container');
 
@@ -120,9 +121,18 @@ export class Container {
     return routesMap;
   }
 
-  createRequestHandler(interceptors: any[], oldHandler: any) {
-    // TODO: use interceptors
+  private createRequestHandler(interceptors: any[], oldHandler: any) {
+    const handlers: any[] = [];
+    // TODO: process afterHooks
+    interceptors.forEach((i) => {
+      const instance = inject<CommonInterceptor>(i);
+      handlers.push(instance.beforeHandle);
+    });
     return async (ctx: RouterCtx, next: NextFunc): Promise<void> => {
+      // TODO: 错误处理
+      for (const handler of handlers) {
+        await handler(ctx);
+      }
       oldHandler(ctx, next);
     };
   }

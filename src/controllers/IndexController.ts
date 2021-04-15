@@ -7,10 +7,11 @@ import {
   RouterCtx,
   autoWired,
 } from '@guku/core';
+import { AuthInterceptor } from '../interceptors/AuthInterceptor';
 import { DBService } from '../services/DBService';
 import { UserService } from '../services/UserService';
 
-@useInterceptor([])
+@useInterceptor([AuthInterceptor])
 @Controller('/')
 export class IndexController extends AbstractController {
   age: number;
