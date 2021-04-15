@@ -28,7 +28,7 @@ export class Server {
     this.init();
   }
 
-  private async init() {
+  private init() {
     const router = new Router();
 
     this.container.routesMap.forEach(({ path, method, handler }) => {
