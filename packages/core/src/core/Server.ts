@@ -1,8 +1,6 @@
 import Koa from 'koa';
 import Router from '@koa/router';
 import { createLogger } from '@guku/utils';
-// import { controllerFactory } from "./controllerFactory";
-// import { ControllerLoader } from "./ControllerLoader";
 import { Config } from './Config';
 import { Container } from './Container';
 
@@ -10,6 +8,7 @@ const logger = createLogger('Server');
 
 export interface ServerOptions {
   controllers?: any[];
+  port?: number;
 }
 
 export class Server {
@@ -21,7 +20,7 @@ export class Server {
 
   private options: ServerOptions;
 
-  constructor(options: ServerOptions) {
+  constructor(options: ServerOptions = {}) {
     this.options = options;
     this.config = new Config();
     this.container = new Container(this.config);
@@ -38,8 +37,9 @@ export class Server {
     this.app.use(router.routes()).use(router.allowedMethods());
   }
 
-  start(port = 3000): void {
-    this.app.listen(port, () => {
+  start(): void {
+    const { port } = this.options;
+    this.app.listen(port || 3030, () => {
       logger.success(`App is running at: http://localhost:${port}`);
     });
   }

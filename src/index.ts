@@ -1,3 +1,3 @@
-import { Server } from '@guku/core';
+import { Bootstrap } from '@guku/core';
 
-new Server({}).start(3030);
+Bootstrap.start({ port: 3060 });
