@@ -134,9 +134,9 @@ export class Container {
         for (const handler of handlers) {
           await handler(ctx);
         }
-        oldHandler(ctx, next);
+        await oldHandler(ctx, next);
       } catch (error) {
-        ctx.status = 400;
+        ctx.status = error.status || 400;
         ctx.body = error.message;
       }
     };
