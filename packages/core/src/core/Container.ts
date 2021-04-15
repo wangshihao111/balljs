@@ -1,4 +1,3 @@
-import { Injector } from 'some-di';
 import globby from 'globby';
 import { resolve } from 'path';
 import { flatten, uniq } from 'lodash';
@@ -10,8 +9,6 @@ import {
   importDecorated,
   getUrlPath,
   NextFunc,
-  // RequestMethodDecoratorKey,
-  // RequestMethodEnum,
   RouterCtx,
   USE_INTERCEPTOR_DECORATOR_KEY,
   REQUEST_METHOD_DECORATOR_KEY,
@@ -20,6 +17,7 @@ import {
 } from '../utils';
 import { initIoc, inject } from './ioc';
 import { CommonInterceptor } from '../decorators';
+import { StoreState } from './Server';
 
 const logger = createLogger('Container');
 
@@ -28,18 +26,16 @@ export class Container {
 
   private loadedInterceptors: any[];
 
-  private interceptorMap: Map<any, any>;
-
   private config;
 
-  private inject: Injector;
+  private store: StoreState;
 
   public readonly routesMap: any[];
 
-  constructor(config: Config) {
-    this.loadedControllers = [];
-    this.interceptorMap = new Map();
+  constructor(config: Config, store: StoreState) {
     this.config = config;
+    this.store = store;
+    this.loadedControllers = [];
     this.loadedControllers = this.loadDecorated('controllers');
     this.loadedInterceptors = this.loadDecorated('interceptors');
     initIoc({
@@ -48,7 +44,6 @@ export class Container {
         ...this.loadDecorated('services'),
       ],
     });
-    this.inject = inject;
     this.routesMap = this.runFactory();
   }
 

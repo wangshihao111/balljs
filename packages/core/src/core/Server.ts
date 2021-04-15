@@ -3,12 +3,18 @@ import Router from '@koa/router';
 import { createLogger } from '@guku/utils';
 import { Config } from './Config';
 import { Container } from './Container';
+import { PluginApi } from './PluginApi';
+import Application from 'koa';
 
 const logger = createLogger('Server');
 
 export interface ServerOptions {
   controllers?: any[];
   port?: number;
+}
+
+export interface StoreState {
+  middleWares: Application.Middleware[];
 }
 
 export class Server {
@@ -20,10 +26,17 @@ export class Server {
 
   private options: ServerOptions;
 
+  private store: StoreState;
+
   constructor(options: ServerOptions = {}) {
     this.options = options;
+    this.store = {
+      middleWares: [],
+    };
     this.config = new Config();
-    this.container = new Container(this.config);
+
+    this.initPlugins();
+    this.container = new Container(this.config, this.store);
     this.app = new Koa();
     this.init();
   }
@@ -34,7 +47,18 @@ export class Server {
     this.container.routesMap.forEach(({ path, method, handler }) => {
       (<any>router)[method](path, handler);
     });
+    this.store.middleWares.forEach((middleware) => this.app.use(middleware));
     this.app.use(router.routes()).use(router.allowedMethods());
+  }
+
+  private initPlugins() {
+    const plugins = (this.config.userConfig.plugins || [])
+      .map(this.loadPlugin)
+      .filter(Boolean);
+    logger.info(`Loaded ${plugins.length} Plugins.`);
+    plugins.forEach((instance) => {
+      instance.apply(new PluginApi(this.store));
+    });
   }
 
   start(): void {
@@ -42,5 +66,17 @@ export class Server {
     this.app.listen(port || 3030, () => {
       logger.success(`App is running at: http://localhost:${port}`);
     });
+  }
+
+  private loadPlugin(plugin: string) {
+    // TODO: LOAD PLUGIN
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const Plugin = require(plugin);
+      return new Plugin();
+    } catch (error) {
+      console.log(error);
+      return undefined;
+    }
   }
 }

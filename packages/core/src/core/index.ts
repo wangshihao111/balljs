@@ -5,3 +5,4 @@ export * from './ioc';
 export * from './Config';
 export * from './Bootstrap';
 export * from './Exceptions';
+export * from './PluginApi';
