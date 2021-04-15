@@ -1,9 +1,9 @@
-import chalk from "chalk";
+import chalk from 'chalk';
 
 export function createLogger(namespace: string) {
   return {
     debug: (...args: any[]) => {
-      process.env.NODE_ENV === "development" &&
+      process.env.NODE_ENV === 'development' &&
         console.log(`${chalk.redBright(namespace)}: `, ...args);
     },
     info(...args: any[]) {

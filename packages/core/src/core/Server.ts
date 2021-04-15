@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import Router from '@koa/router';
-import { createLogger } from '../utils';
+import { createLogger } from '@guku/utils';
 // import { controllerFactory } from "./controllerFactory";
 // import { ControllerLoader } from "./ControllerLoader";
 import { Config } from './Config';

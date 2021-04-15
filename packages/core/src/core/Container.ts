@@ -2,6 +2,7 @@ import { Injector } from 'some-di';
 import globby from 'globby';
 import { resolve } from 'path';
 import { flatten, uniq } from 'lodash';
+import { createLogger } from '@guku/utils';
 import { Config } from './Config';
 import {
   CONTROLLER_DECORATOR_KEY,
@@ -16,7 +17,6 @@ import {
   REQUEST_METHOD_DECORATOR_KEY,
   RequestMethodDecoratorValue,
   SERVICE_DECORATOR_KEY,
-  createLogger,
 } from '../utils';
 import { initIoc, inject } from './ioc';
 
