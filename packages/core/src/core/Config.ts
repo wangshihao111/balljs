@@ -7,8 +7,15 @@
 import path from 'path';
 import { getWorkDirectory } from '../utils';
 
+export interface IConfigPaths {
+  controllers?: string[];
+  services?: string[];
+  interceptors?: string[];
+}
+
 export interface IConfig {
   plugins: string[];
+  paths?: IConfigPaths;
 }
 
 export class Config {

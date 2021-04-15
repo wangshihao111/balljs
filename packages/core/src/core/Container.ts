@@ -42,19 +42,30 @@ export class Container {
       providers: [
         ...this.loadedInterceptors,
         ...this.loadDecorated('services'),
+        {
+          provide: 'config',
+          useValue: Object.freeze(this.config),
+        },
       ],
     });
     this.routesMap = this.runFactory();
   }
 
   private loadDecorated(type: 'controllers' | 'interceptors' | 'services') {
-    const { workDir, cwd } = this.config;
+    const {
+      workDir,
+      cwd,
+      userConfig: { paths: configPaths = {} },
+    } = this.config;
     const keyMap = {
       controllers: CONTROLLER_DECORATOR_KEY,
       interceptors: INTERCEPTOR_DECORATOR_KEY,
       services: SERVICE_DECORATOR_KEY,
     };
-    const paths = [resolve(workDir, type)].map((p) => resolve(cwd, p));
+    const paths = [
+      resolve(workDir, type),
+      ...(configPaths[type] || []),
+    ].map((p) => resolve(cwd, p));
     const files = flatten(
       paths.map((p) => {
         const list = globby.sync(['**/*.js', '**/*.ts'], {
