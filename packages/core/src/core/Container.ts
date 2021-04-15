@@ -1,9 +1,8 @@
-import { createPool, Injector } from "some-di";
-import globby from "globby";
-import { resolve } from "path";
-import { flatten, uniq } from "lodash";
-import { AbstractController } from "./AbstractController";
-import { Config } from "./Config";
+import { Injector } from 'some-di';
+import globby from 'globby';
+import { resolve } from 'path';
+import { flatten, uniq } from 'lodash';
+import { Config } from './Config';
 import {
   CONTROLLER_DECORATOR_KEY,
   INTERCEPTOR_DECORATOR_KEY,
@@ -16,7 +15,12 @@ import {
   USE_INTERCEPTOR_DECORATOR_KEY,
   REQUEST_METHOD_DECORATOR_KEY,
   RequestMethodDecoratorValue,
-} from "../utils";
+  SERVICE_DECORATOR_KEY,
+  createLogger,
+} from '../utils';
+import { initIoc, inject } from './ioc';
+
+const logger = createLogger('Container');
 
 export class Container {
   private loadedControllers: any[];
@@ -35,34 +39,39 @@ export class Container {
     this.loadedControllers = [];
     this.interceptorMap = new Map();
     this.config = config;
-    this.loadedControllers = this.loadDecorated("controllers");
-    this.loadedInterceptors = this.loadDecorated("interceptors");
-    const { inject, Inject, container } = createPool({
-      providers: [...this.loadedInterceptors],
+    this.loadedControllers = this.loadDecorated('controllers');
+    this.loadedInterceptors = this.loadDecorated('interceptors');
+    initIoc({
+      providers: [
+        ...this.loadedInterceptors,
+        ...this.loadDecorated('services'),
+      ],
     });
     this.inject = inject;
     this.routesMap = this.runFactory();
   }
 
-  private loadDecorated(type: "controllers" | "interceptors") {
+  private loadDecorated(type: 'controllers' | 'interceptors' | 'services') {
     const { workDir, cwd } = this.config;
     const keyMap = {
       controllers: CONTROLLER_DECORATOR_KEY,
       interceptors: INTERCEPTOR_DECORATOR_KEY,
+      services: SERVICE_DECORATOR_KEY,
     };
     const paths = [resolve(workDir, type)].map((p) => resolve(cwd, p));
     const files = flatten(
       paths.map((p) => {
-        const list = globby.sync(["**/*.js", "**/*.ts"], {
+        const list = globby.sync(['**/*.js', '**/*.ts'], {
           cwd: p,
-          ignore: ["**/*.d.ts"],
+          ignore: ['**/*.d.ts'],
         });
         return list.map((item) => resolve(p, item));
       })
     );
-    const allClass = flatten(
-      files.map((file) => importDecorated(file, keyMap[type]))
+    const allClass = uniq(
+      flatten(files.map((file) => importDecorated(file, keyMap[type])))
     );
+    logger.info(`Loaded ${allClass.length} ${type}.`);
     return allClass;
   }
 
@@ -71,8 +80,7 @@ export class Container {
     this.loadedControllers.forEach((Controller) => {
       if (!Reflect.hasOwnMetadata(CONTROLLER_DECORATOR_KEY, Controller)) {
         console.log(Controller);
-        
-        throw new Error("Invalid Controller.", );
+        throw new Error('Invalid Controller.');
       }
       const basePath = Reflect.getMetadata(
         CONTROLLER_DECORATOR_KEY,
@@ -96,15 +104,14 @@ export class Container {
               controller,
               key
             );
-            const handler = async (ctx: RouterCtx, next: NextFunc) => {
-              for (const interceptor of interceptors) {
-                const interceptorInstance = Reflect.construct(interceptor, []);
-              }
-            };
+            const handler = this.createRequestHandler(
+              interceptors,
+              value.bind(controller)
+            );
             routesMap.push({
               path: getUrlPath(basePath, path),
               method: method.toLowerCase(),
-              handler: value.bind(controller),
+              handler,
             });
           }
         }
@@ -113,10 +120,10 @@ export class Container {
     return routesMap;
   }
 
-  createRequestHandler(interceptors: any[]) {
-
-    return (ctx: RouterCtx, next: NextFunc) => {
-
-    }
+  createRequestHandler(interceptors: any[], oldHandler: any) {
+    // TODO: use interceptors
+    return async (ctx: RouterCtx, next: NextFunc): Promise<void> => {
+      oldHandler(ctx, next);
+    };
   }
 }

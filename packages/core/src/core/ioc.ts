@@ -1,10 +1,10 @@
-import { createPool } from 'some-di';
-import { Config } from './Config';
-import { Container } from './Container';
+import { ContainerProps, createPool, Injector } from 'some-di';
 
-const containerInstance = new Container(new Config());
+let inject: Injector;
 
-const { inject, Inject, container } = createPool({
-  providers: [],
-});
-export { inject, Inject, container };
+export function initIoc(opts: ContainerProps): void {
+  const { inject: _inject } = createPool(opts);
+  inject = _inject;
+}
+
+export { inject };

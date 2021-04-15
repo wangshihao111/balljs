@@ -5,12 +5,22 @@ import {
   useInterceptor,
   NextFunc,
   RouterCtx,
+  autoWired,
 } from '@guku/core';
+import { DBService } from '../services/DBService';
+import { UserService } from '../services/UserService';
 
 @useInterceptor([])
 @Controller('/')
 export class IndexController extends AbstractController {
   age: number;
+
+  @autoWired(UserService)
+  userService!: UserService;
+
+  @autoWired(DBService)
+  db!: DBService;
+
   constructor() {
     super({});
     this.age = 999;
@@ -18,6 +28,11 @@ export class IndexController extends AbstractController {
 
   @Get('/')
   index(ctx: RouterCtx, next: NextFunc) {
+    console.log(
+      this.userService,
+      this.db.user,
+      this.userService === this.db.user
+    );
     ctx.body = 'hello world';
   }
 }
