@@ -13,7 +13,8 @@
   "events": {
   },
   "watch": [
-    "src"
+    "src",
+    "packages/*/lib/**/*.js"
   ],
   "env": {
     "NODE_ENV": "development",
