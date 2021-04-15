@@ -14,6 +14,7 @@ import {
   REQUEST_METHOD_DECORATOR_KEY,
   RequestMethodDecoratorValue,
   SERVICE_DECORATOR_KEY,
+  AppCtx,
 } from '../utils';
 import { initIoc, inject } from './ioc';
 import { CommonInterceptor } from '../decorators';
@@ -32,12 +33,15 @@ export class Container {
 
   public readonly routesMap: any[];
 
+  private appCtx: AppCtx;
+
   constructor(config: Config, store: StoreState) {
     this.config = config;
     this.store = store;
     this.loadedControllers = [];
     this.loadedControllers = this.loadDecorated('controllers');
     this.loadedInterceptors = this.loadDecorated('interceptors');
+    this.appCtx = {};
     initIoc({
       providers: [
         ...this.loadedInterceptors,
@@ -93,7 +97,7 @@ export class Container {
         CONTROLLER_DECORATOR_KEY,
         Controller
       );
-      const controller = Reflect.construct(Controller, []);
+      const controller = Reflect.construct(Controller, [this.appCtx]);
       const interceptors: any[] = uniq(
         Reflect.getMetadata(USE_INTERCEPTOR_DECORATOR_KEY, Controller) || []
       );

@@ -1,11 +1,10 @@
 import {
-  AbstractController,
   Controller,
   Get,
   useInterceptor,
-  NextFunc,
   RouterCtx,
   autoWired,
+  AppCtx,
 } from '@guku/core';
 import { AuthInterceptor } from '../interceptors/AuthInterceptor';
 import { DBService } from '../services/DBService';
@@ -13,7 +12,7 @@ import { UserService } from '../services/UserService';
 
 @useInterceptor([AuthInterceptor])
 @Controller('/')
-export class IndexController extends AbstractController {
+export class IndexController {
   age: number;
 
   @autoWired(UserService)
@@ -22,13 +21,13 @@ export class IndexController extends AbstractController {
   @autoWired(DBService)
   db!: DBService;
 
-  constructor() {
-    super({});
+  constructor(private appCtx: AppCtx) {
     this.age = 999;
   }
 
   @Get('/')
-  index(ctx: RouterCtx, next: NextFunc) {
+  index(ctx: RouterCtx) {
+    console.log(this.appCtx);
     console.log(
       this.userService,
       this.db.user,
