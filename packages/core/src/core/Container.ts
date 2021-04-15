@@ -130,10 +130,15 @@ export class Container {
     });
     return async (ctx: RouterCtx, next: NextFunc): Promise<void> => {
       // TODO: 错误处理
-      for (const handler of handlers) {
-        await handler(ctx);
+      try {
+        for (const handler of handlers) {
+          await handler(ctx);
+        }
+        oldHandler(ctx, next);
+      } catch (error) {
+        ctx.status = 400;
+        ctx.body = error.message;
       }
-      oldHandler(ctx, next);
     };
   }
 }

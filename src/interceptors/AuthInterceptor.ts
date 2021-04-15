@@ -1,9 +1,16 @@
-import { CommonInterceptor, Interceptor, RouterCtx } from '@guku/core';
+import {
+  BadRequestException,
+  CommonInterceptor,
+  Interceptor,
+  RouterCtx,
+} from '@guku/core';
 
 @Interceptor()
 export class AuthInterceptor implements CommonInterceptor {
   async beforeHandle(ctx: RouterCtx): Promise<void> {
-    console.log('before', ctx);
+    if (!ctx.query.name) {
+      throw new BadRequestException();
+    }
   }
   afterHandle() {
     throw new Error('Method not implemented.');
