@@ -6,7 +6,7 @@ import { cwd } from '../utils';
 export async function runBuild(): Promise<void> {
   rimraf.sync(path.resolve(cwd, 'dist'), {});
   return new Promise((resolve, reject) => {
-    const command = 'tsc --outDir dist';
+    const command = 'tsc --outDir dist --declaration false';
     const child = spawn(command, {
       shell: true,
       cwd: cwd,
