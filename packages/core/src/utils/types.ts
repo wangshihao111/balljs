@@ -17,4 +17,6 @@ export interface RequestMethodDecoratorValue {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface AppCtx {}
+export interface AppCtx {
+  name?: string;
+}

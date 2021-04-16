@@ -1,3 +1,4 @@
+import { AppCtx } from '../utils';
 import { ClusterScheduler, WorkerProcessType } from './ClusterScheduler';
 import { Server } from './Server';
 
@@ -16,9 +17,12 @@ const clusterScheduler = new ClusterScheduler();
 export class Bootstrap {
   static start(opts: BootstrapStartOpts = {}): void {
     const { workersProcess = 'default' } = opts;
+    const appCtx: AppCtx = {
+      name: '111',
+    };
     clusterScheduler
       .register(() => {
-        const server = new Server({ port: opts.port });
+        const server = new Server({ port: opts.port, appCtx });
         server.start();
       })
       .schedule({ workers: workersProcess });

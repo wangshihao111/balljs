@@ -35,13 +35,13 @@ export class Container {
 
   private appCtx: AppCtx;
 
-  constructor(config: Config, store: StoreState) {
+  constructor(config: Config, store: StoreState, appCtx: AppCtx = {}) {
     this.config = config;
     this.store = store;
     this.loadedControllers = [];
     this.loadedControllers = this.loadDecorated('controllers');
     this.loadedInterceptors = this.loadDecorated('interceptors');
-    this.appCtx = {};
+    this.appCtx = appCtx;
     initIoc({
       providers: [
         ...this.loadedInterceptors,

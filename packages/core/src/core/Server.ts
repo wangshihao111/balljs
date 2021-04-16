@@ -5,12 +5,14 @@ import { Config } from './Config';
 import { Container } from './Container';
 import { PluginApi } from './PluginApi';
 import Application from 'koa';
+import { AppCtx } from '../utils';
 
 const logger = createLogger('Server');
 
 export interface ServerOptions {
   controllers?: any[];
   port?: number;
+  appCtx?: AppCtx;
 }
 
 export interface StoreState {
@@ -36,7 +38,11 @@ export class Server {
     this.config = new Config();
 
     this.initPlugins();
-    this.container = new Container(this.config, this.store);
+    this.container = new Container(
+      this.config,
+      this.store,
+      this.options.appCtx
+    );
     this.app = new Koa();
     this.init();
   }
