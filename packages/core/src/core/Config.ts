@@ -32,12 +32,12 @@ export class Config {
   }
 
   loadConfig(): IConfig {
-    const configFilePath = path.resolve(this.cwd, 'guku.config.js');
+    const configFilePath = path.resolve(this.cwd, this.workDir, 'app.config');
     try {
-      return require(configFilePath);
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const config = require(configFilePath);
+      return config.default || config || {};
     } catch (error) {
-      console.log(222, error);
-
       return { plugins: [] };
     }
   }

@@ -33,6 +33,10 @@ export class IndexController {
       this.db.user,
       this.userService === this.db.user
     );
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    console.log(ctx.appCtx.render?.());
+
     ctx.body = 'hello world';
   }
 }

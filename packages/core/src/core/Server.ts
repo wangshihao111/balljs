@@ -3,7 +3,7 @@ import Router from '@koa/router';
 import { createLogger } from '@guku/utils';
 import { Config } from './Config';
 import { Container } from './Container';
-import { PluginApi } from './PluginApi';
+import { GlobalMethod, PluginApi } from './PluginApi';
 import Application from 'koa';
 import { AppCtx } from '../utils';
 
@@ -17,6 +17,7 @@ export interface ServerOptions {
 
 export interface StoreState {
   middleWares: Application.Middleware[];
+  globalMethods: { name: string; handler: GlobalMethod }[];
 }
 
 export class Server {
@@ -34,6 +35,7 @@ export class Server {
     this.options = options;
     this.store = {
       middleWares: [],
+      globalMethods: [],
     };
     this.config = new Config();
 

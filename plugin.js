@@ -7,5 +7,11 @@ module.exports = class {
         next();
       },
     ]);
+    api.addGlobalMethod({
+      name: 'render',
+      handler() {
+        return 'I am handler';
+      }
+    })
   }
 };
