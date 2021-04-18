@@ -7,7 +7,9 @@ export type RouterCtx = ParameterizedContext<
   any,
   Router.RouterParamContext<any, any>,
   any
->;
+> & {
+  appCtx: AppCtx;
+};
 
 export type NextFunc = Next;
 

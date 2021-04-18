@@ -97,7 +97,9 @@ export class Container {
         CONTROLLER_DECORATOR_KEY,
         Controller
       );
-      const controller = Reflect.construct(Controller, [this.appCtx]);
+      const controller = Reflect.construct(Controller, [
+        Object.freeze(this.appCtx),
+      ]);
       const interceptors: any[] = uniq(
         Reflect.getMetadata(USE_INTERCEPTOR_DECORATOR_KEY, Controller) || []
       );
@@ -139,7 +141,7 @@ export class Container {
       handlers.push(instance.beforeHandle);
     });
     return async (ctx: RouterCtx, next: NextFunc): Promise<void> => {
-      // TODO: 错误处理
+      ctx.appCtx = Object.freeze(this.appCtx);
       try {
         for (const handler of handlers) {
           await handler(ctx);
