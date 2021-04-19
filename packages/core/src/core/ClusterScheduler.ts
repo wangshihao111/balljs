@@ -1,7 +1,10 @@
+import { createLogger } from '@guku/utils';
 import cluster from 'cluster';
 import { cpus } from 'os';
 
 export type WorkerProcessType = number | 'default' | undefined;
+
+const logger = createLogger('Bootstrap');
 
 export class ClusterScheduler {
   tasks: (() => void)[];
@@ -21,15 +24,19 @@ export class ClusterScheduler {
       workerLength = workers === 'default' ? workerLength : workers;
     }
     if (cluster.isMaster) {
-      console.log(`Master ${process.pid} is running`);
+      logger.info(`Master ${process.pid} is running`);
       // Fork workers.
       for (let i = 0; i < workerLength; i++) {
         cluster.fork();
       }
 
       cluster.on('exit', (worker, code, signal) => {
-        console.log(`worker ${worker.process.pid} died`);
-        cluster.fork();
+        const { pid } = worker.process;
+        logger.error(`worker ${worker.process.pid} died. Restarting worker.`);
+        const newWorker = cluster.fork();
+        logger.info(
+          `Worker ${pid} restarted, latest worker is ${newWorker.process.pid}.`
+        );
       });
     } else {
       this.tasks.forEach((task) => {

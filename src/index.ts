@@ -1,3 +1,3 @@
 import { Bootstrap } from '@guku/core';
 
-Bootstrap.start({ port: 3060 });
+Bootstrap.start({ port: 3060, workersProcess: 1 });
