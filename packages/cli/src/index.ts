@@ -1,5 +1,6 @@
 import commander from 'commander';
 import { runBuild } from './actions/build';
+import { runCreate } from './actions/create';
 import { runDev } from './actions/dev';
 import { runStart } from './actions/start';
 
@@ -30,6 +31,13 @@ commander
       watch: command.watch?.split(' '),
       entry: command.entry || 'src/index',
     });
+  });
+
+commander
+  .command('create <projectName>')
+  .description('Create project')
+  .action((projectName) => {
+    runCreate({ name: projectName });
   });
 
 commander.parse(process.argv);
