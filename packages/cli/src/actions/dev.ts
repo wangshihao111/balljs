@@ -28,7 +28,9 @@ export async function runDev(opts: { watch?: string[]; entry: string }) {
     console.log(initial ? '开发服务启动.' : '文件变动，重新加载..');
     initial = false;
 
-    child = spawn(`ts-node ${entry}`, {
+    const binPath = require.resolve('ts-node/dist/bin.js');
+
+    child = spawn(`node ${binPath} ${entry}`, {
       cwd,
       shell: true,
       stdio: ['ignore', 'inherit', 'inherit'],
