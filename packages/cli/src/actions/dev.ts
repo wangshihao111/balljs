@@ -8,8 +8,8 @@ import { cwd } from '../utils';
 
 let initial = true;
 
-export async function runDev(opts: { watch?: string[] }) {
-  const { watch } = opts;
+export async function runDev(opts: { watch?: string[]; entry: string }) {
+  const { watch, entry } = opts;
   console.log(opts);
 
   const watcher = chokidar.watch(
@@ -28,7 +28,7 @@ export async function runDev(opts: { watch?: string[] }) {
     console.log(initial ? '开发服务启动.' : '文件变动，重新加载..');
     initial = false;
 
-    child = spawn('ts-node src/index.ts', {
+    child = spawn(`ts-node ${entry}`, {
       cwd,
       shell: true,
       stdio: ['ignore', 'inherit', 'inherit'],

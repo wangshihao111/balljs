@@ -24,9 +24,11 @@ commander
   .command('dev')
   .description('启动开发服务')
   .option('-w, --watch <watch>', '监听的文件')
+  .option('-e, --entry <entry>', '入口文件路径')
   .action((command) => {
     runDev({
       watch: command.watch?.split(' '),
+      entry: command.entry || 'src/index',
     });
   });
 
