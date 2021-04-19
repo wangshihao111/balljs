@@ -18,5 +18,5 @@ export function useInterceptor(interceptors: any[]) {
 
 export interface CommonInterceptor {
   beforeHandle(ctx: RouterCtx): any;
-  afterHandle(): any;
+  afterHandle?: (ctx: RouterCtx) => any;
 }
