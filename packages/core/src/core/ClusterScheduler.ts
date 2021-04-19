@@ -1,4 +1,4 @@
-import { createLogger } from '@guku/utils';
+import { createLogger, WORKER_ENV_NTH } from '@guku/utils';
 import cluster from 'cluster';
 import { cpus } from 'os';
 
@@ -27,12 +27,12 @@ export class ClusterScheduler {
       logger.info(`Master ${process.pid} is running`);
       // Fork workers.
       for (let i = 0; i < workerLength; i++) {
-        cluster.fork();
+        cluster.fork({ [WORKER_ENV_NTH]: i });
       }
 
       cluster.on('exit', (worker, code, signal) => {
         const { pid } = worker.process;
-        logger.error(`worker ${worker.process.pid} died. Restarting worker.`);
+        logger.error(`worker ${worker.process.pid} died. Restarting worker...`);
         const newWorker = cluster.fork();
         logger.info(
           `Worker ${pid} restarted, latest worker is ${newWorker.process.pid}.`

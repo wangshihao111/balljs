@@ -17,6 +17,9 @@ const clusterScheduler = new ClusterScheduler();
 export class Bootstrap {
   static start(opts: BootstrapStartOpts = {}): void {
     const { workersProcess = 'default' } = opts;
+    if (typeof workersProcess === 'number' && workersProcess < 1) {
+      throw new Error('You should have at least one worker process.');
+    }
     const appCtx: AppCtx = {
       name: '111',
     };

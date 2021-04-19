@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import Router from '@koa/router';
-import { createLogger } from '@guku/utils';
+import { createLogger, isFirstWorker } from '@guku/utils';
 import { Config } from './Config';
 import { Container } from './Container';
 import { GlobalMethod, PluginApi } from './PluginApi';
@@ -63,7 +63,7 @@ export class Server {
     const plugins = (this.config.userConfig.plugins || [])
       .map(this.loadPlugin)
       .filter(Boolean);
-    logger.info(`Loaded ${plugins.length} Plugins.`);
+    isFirstWorker() && logger.info(`Loaded ${plugins.length} Plugins.`);
     plugins.forEach((instance) => {
       instance.apply(new PluginApi(this.store));
     });
@@ -72,7 +72,8 @@ export class Server {
   start(): void {
     const { port } = this.options;
     this.app.listen(port || 3030, () => {
-      logger.success(`App is running at: http://localhost:${port}`);
+      isFirstWorker() &&
+        logger.success(`App is running at: http://localhost:${port}`);
     });
   }
 

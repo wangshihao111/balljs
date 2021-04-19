@@ -1,7 +1,7 @@
 import globby from 'globby';
 import { resolve } from 'path';
 import { flatten, uniq } from 'lodash';
-import { createLogger } from '@guku/utils';
+import { createLogger, isFirstWorker } from '@guku/utils';
 import { Config } from './Config';
 import {
   CONTROLLER_DECORATOR_KEY,
@@ -83,7 +83,7 @@ export class Container {
     const allClass = uniq(
       flatten(files.map((file) => importDecorated(file, keyMap[type])))
     );
-    logger.info(`Loaded ${allClass.length} ${type}.`);
+    isFirstWorker() && logger.info(`Loaded ${allClass.length} ${type}.`);
     return allClass;
   }
 
