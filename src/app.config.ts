@@ -1,5 +1,6 @@
-/* eslint-disable */
-module.exports = {
+import { IConfig } from '@guku/core';
+
+export default {
   plugins: [require.resolve('../plugin.js')],
   /**
    * 扫描路径
@@ -9,4 +10,4 @@ module.exports = {
     interceptors: [],
     services: [],
   },
-};
+} as IConfig;
