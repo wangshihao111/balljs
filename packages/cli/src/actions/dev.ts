@@ -4,13 +4,15 @@ import { debounce } from 'lodash';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import kill from 'treekill';
+import { createLogger } from '@guku/utils';
 import { cwd } from '../utils';
 
 let initial = true;
 
+const logger = createLogger('CLI');
+
 export async function runDev(opts: { watch?: string[]; entry: string }) {
   const { watch, entry } = opts;
-  console.log(opts);
 
   const watcher = chokidar.watch(
     watch?.length ? watch : ['src/**/*.ts', 'src/**/*.js'],
@@ -25,7 +27,7 @@ export async function runDev(opts: { watch?: string[]; entry: string }) {
     if (child) {
       kill(child.pid);
     }
-    console.log(initial ? '开发服务启动.' : '文件变动，重新加载..');
+    logger.info(initial ? '开发服务启动中...' : '文件变动，重新加载中...');
     initial = false;
 
     const binPath = require.resolve('ts-node/dist/bin.js');
