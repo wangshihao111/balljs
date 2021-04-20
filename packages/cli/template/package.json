@@ -15,7 +15,7 @@
     "packages/*"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "typescript": "^4.2.3"
   },

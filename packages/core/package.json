@@ -10,7 +10,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@guku/utils": "^1.0.0",
     "@koa/router": "^10.0.0",
