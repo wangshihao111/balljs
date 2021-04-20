@@ -79,15 +79,23 @@ export class Server {
     });
   }
 
-  private loadPlugin(plugin: string) {
-    // TODO: LOAD PLUGIN
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const Plugin = require(plugin);
-      return new Plugin();
-    } catch (error) {
-      console.log(error);
-      return undefined;
+  private loadPlugin(plugin: any) {
+    if (typeof plugin === 'string') {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const file = require(plugin);
+        const Plugin = file.default || file;
+        return new Plugin();
+      } catch (error) {
+        console.log(error);
+        return undefined;
+      }
+    } else if (
+      typeof plugin === 'object' &&
+      typeof plugin.apply === 'function'
+    ) {
+      return plugin;
     }
+    return undefined;
   }
 }
