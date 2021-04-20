@@ -4,7 +4,7 @@ module.exports = class {
     api.addMiddleWares([
       async (ctx, next) => {
         console.log('test middleware in plugin');
-        next();
+        await next();
       },
     ]);
     api.addGlobalMethod({

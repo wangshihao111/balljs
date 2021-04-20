@@ -1,0 +1,23 @@
+{
+  "name": "@guku/plugin-static",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "npx rimraf lib && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/koa-static": "^4.0.1"
+  },
+  "dependencies": {
+    "@guku/utils": "^1.0.0",
+    "koa-static": "^5.0.0"
+  },
+  "files": [
+    "lib"
+  ]
+}

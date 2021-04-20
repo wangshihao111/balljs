@@ -25,7 +25,7 @@ export class IndexController {
     this.age = 999;
   }
 
-  @Get('/')
+  @Get('/hello')
   index(ctx: RouterCtx) {
     console.log(this.appCtx);
     console.log(
