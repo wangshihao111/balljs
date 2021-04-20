@@ -1,4 +1,4 @@
-# monkey-server
+# GUKU
 
 一个简单实用的Nodejs库。用于便捷的创建服务端应用。
 
@@ -41,7 +41,7 @@ import {
 export class IndexController { }
 ```
 
-控制器内可以有 n 个路由处理，器需要使用方法装饰器：@Post, @Get, @Put, @Delete, @Patch, 参数为路由路径，例如：
+控制器内可以有 n 个路由处理方法，路由方法需要使用方法装饰器进行装饰：@Post, @Get, @Put, @Delete, @Patch, 参数为路由路径，例如：
 
 ```ts
 import {
@@ -61,7 +61,7 @@ export class IndexController {
 
 ### Service 服务
 
-我们在路由处理中，必然会使用一些服务，这些服务里封装了必要的逻辑，我们希望能够便捷地进行调用。
+我们在路由处理中，必然会使用一些服务，这些服务里封装了必要或可复用逻辑，我们希望能够便捷地进行调用。
 
 - 定义：
 使用 @Service 装饰器进行装饰，并将其放到services文件夹。框架会自动加载并注册服务。例如：
@@ -71,7 +71,7 @@ import {
   Service
 } from '@guku/core';
 
-@Service
+@Service()
 export class UserService {
   public login() {
     // ...
@@ -81,7 +81,7 @@ export class UserService {
 
 - 使用
 
-在我们的controller中可以使用@autoWired进行自动装载：
+在我们的 controller 中可以使用 @autoWired 进行自动装载：
 
 ```ts
 import {
@@ -205,7 +205,7 @@ export class AuthInterceptor implements CommonInterceptor {
 
 如果内置异常不满足需求，则可以定义自己的异常类。
 
-如下所示：
+我们可以使用 exceptionFactory 生成异常类，如下所示：
 
 ```ts
 import { exceptionFactory } from '@guku/core';
@@ -217,3 +217,12 @@ export const MyException = exceptionFactory(
 );
 
 ```
+
+### 插件
+
+TODO: 补充。
+
+
+## 其它
+
+TODO: 补充
