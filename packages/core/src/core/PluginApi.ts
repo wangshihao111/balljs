@@ -35,6 +35,13 @@ export class PluginApi {
   }) {
     this.store.globalMethods.push(methodConfig);
   }
+
+  /**
+   * addControllers
+   */
+  public addControllers(controllers: any[]) {
+    this.store.controllers.push(...controllers);
+  }
 }
 
 export interface IPlugin {

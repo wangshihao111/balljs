@@ -16,6 +16,7 @@ export interface ServerOptions {
 }
 
 export interface StoreState {
+  controllers: any[];
   middleWares: Application.Middleware[];
   globalMethods: { name: string; handler: GlobalMethod }[];
 }
@@ -36,6 +37,7 @@ export class Server {
     this.store = {
       middleWares: [],
       globalMethods: [],
+      controllers: [],
     };
     this.config = new Config();
 
