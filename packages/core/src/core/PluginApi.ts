@@ -8,6 +8,8 @@
 */
 
 import Application from 'koa';
+import http from 'http';
+import https from 'https';
 import { StoreState } from './Server';
 
 export type GlobalMethod = () => void;
@@ -41,6 +43,16 @@ export class PluginApi {
    */
   public addControllers(controllers: any[]) {
     this.store.controllers.push(...controllers);
+  }
+
+  /**
+   * onInit
+   */
+  public onInit(handler: (server: http.Server | https.Server) => void): void {
+    if (typeof handler !== 'function') {
+      throw new Error('handler must be function');
+    }
+    this.store.hooks.onInit.push(handler);
   }
 }
 

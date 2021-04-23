@@ -1,6 +1,8 @@
 import Koa from 'koa';
 import Router from '@koa/router';
 import { createLogger, isFirstWorker } from '@guku/utils';
+import http from 'http';
+import https from 'https';
 import { Config } from './Config';
 import { Container } from './Container';
 import { GlobalMethod, PluginApi } from './PluginApi';
@@ -13,12 +15,16 @@ export interface ServerOptions {
   controllers?: any[];
   port?: number;
   appCtx?: AppCtx;
+  protocol?: 'http' | 'https';
 }
 
 export interface StoreState {
   controllers: any[];
   middleWares: Application.Middleware[];
   globalMethods: { name: string; handler: GlobalMethod }[];
+  hooks: {
+    onInit: any[];
+  };
 }
 
 export class Server {
@@ -32,12 +38,17 @@ export class Server {
 
   private store: StoreState;
 
+  private server!: http.Server;
+
   constructor(options: ServerOptions = {}) {
     this.options = options;
     this.store = {
       middleWares: [],
       globalMethods: [],
       controllers: [],
+      hooks: {
+        onInit: [],
+      },
     };
     this.config = new Config();
 
@@ -59,6 +70,11 @@ export class Server {
     });
     this.store.middleWares.forEach((middleware) => this.app.use(middleware));
     this.app.use(router.routes()).use(router.allowedMethods());
+    this.server = (this.options.protocol === 'https'
+      ? https
+      : http
+    ).createServer(this.app.callback());
+    this.store.hooks.onInit.forEach((handler) => handler(this.server));
   }
 
   private initPlugins() {
@@ -73,7 +89,7 @@ export class Server {
 
   start(): void {
     const { port } = this.options;
-    this.app.listen(port || 3030, () => {
+    this.server.listen(port || 3030, () => {
       isFirstWorker() &&
         logger.success(`App is running at: http://localhost:${port}`);
     });
