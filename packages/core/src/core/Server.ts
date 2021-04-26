@@ -7,6 +7,7 @@ import { Config } from './Config';
 import { Container } from './Container';
 import { GlobalMethod, PluginApi } from './PluginApi';
 import Application from 'koa';
+import bodyParser from 'koa-bodyparser';
 import { AppCtx } from '../utils';
 
 const logger = createLogger('Server');
@@ -69,6 +70,7 @@ export class Server {
       (<any>router)[method](path, handler);
     });
     this.store.middleWares.forEach((middleware) => this.app.use(middleware));
+    this.app.use(bodyParser({ enableTypes: ['json', 'form', 'text', 'xml'] }));
     this.app.use(router.routes()).use(router.allowedMethods());
     this.server = (this.options.protocol === 'https'
       ? https

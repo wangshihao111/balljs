@@ -5,6 +5,7 @@ import {
   RouterCtx,
   autoWired,
   AppCtx,
+  Post,
 } from '@guku/core';
 import { AuthInterceptor } from '../interceptors/AuthInterceptor';
 import { DBService } from '../services/DBService';
@@ -28,6 +29,7 @@ export class IndexController {
   @Get('/hello')
   index(ctx: RouterCtx) {
     console.log(this.appCtx);
+    console.log('req Body', ctx.request.body);
     console.log(
       this.userService,
       this.db.user,
@@ -38,5 +40,9 @@ export class IndexController {
     console.log(ctx.appCtx.render?.());
 
     ctx.body = 'hello world';
+  }
+  @Post('/hello')
+  postIndex(ctx: RouterCtx) {
+    ctx.body = ctx.request.body;
   }
 }
