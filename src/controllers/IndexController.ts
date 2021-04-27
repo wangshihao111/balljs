@@ -39,7 +39,7 @@ export class IndexController {
     // @ts-ignore
     console.log(ctx.appCtx.render?.());
 
-    ctx.body = 'hello world';
+    ctx.appCtx.ctx.body = 'hello world';
   }
   @Post('/hello')
   postIndex(ctx: RouterCtx) {

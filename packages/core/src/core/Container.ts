@@ -35,7 +35,11 @@ export class Container {
 
   private appCtx: AppCtx;
 
-  constructor(config: Config, store: StoreState, appCtx: AppCtx = {}) {
+  constructor(
+    config: Config,
+    store: StoreState,
+    appCtx: AppCtx = { ctx: {} as any }
+  ) {
     this.config = config;
     this.store = store;
     this.loadedControllers = [];
@@ -98,9 +102,7 @@ export class Container {
         CONTROLLER_DECORATOR_KEY,
         Controller
       );
-      const controller = Reflect.construct(Controller, [
-        Object.freeze(this.appCtx),
-      ]);
+      const controller = Reflect.construct(Controller, [this.appCtx]);
       const interceptors: any[] = uniq(
         Reflect.getMetadata(USE_INTERCEPTOR_DECORATOR_KEY, Controller) || []
       );
@@ -142,7 +144,8 @@ export class Container {
       handlers.push(instance.beforeHandle);
     });
     return async (ctx: RouterCtx, next: NextFunc): Promise<void> => {
-      ctx.appCtx = Object.freeze(this.appCtx);
+      ctx.appCtx = this.appCtx;
+      ctx.appCtx.ctx = ctx;
       try {
         for (const handler of handlers) {
           await handler(ctx);

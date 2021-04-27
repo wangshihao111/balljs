@@ -22,6 +22,7 @@ export class Bootstrap {
     }
     const appCtx: AppCtx = {
       name: '111',
+      ctx: {} as any,
     };
     clusterScheduler
       .register(() => {
