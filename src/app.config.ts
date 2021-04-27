@@ -6,6 +6,7 @@ export default {
   plugins: [
     require.resolve('../plugin.js'),
     '@guku/plugin-static',
+    '@guku/plugin-cors',
     new PluginSocket({
       prefix: '/socket',
       dirs: [path.resolve(__dirname, './socketControllers')],

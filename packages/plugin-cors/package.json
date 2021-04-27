@@ -1,0 +1,22 @@
+{
+  "name": "@guku/plugin-cors",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "npx rimraf lib && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/koa__cors": "^3.0.2"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0"
+  },
+  "files": [
+    "lib"
+  ]
+}
