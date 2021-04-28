@@ -28,8 +28,7 @@ export class IndexController {
 
   @Get('/hello')
   index(ctx: RouterCtx) {
-    console.log(this.appCtx);
-    console.log('req Body', ctx.request.body);
+    console.log(this.appCtx.ctx);
     console.log(
       this.userService,
       this.db.user,
@@ -37,7 +36,7 @@ export class IndexController {
     );
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    console.log(ctx.appCtx.render?.());
+    console.log(ctx.appCtx.render?.(), ctx.appCtx.ctx.request.query);
 
     ctx.appCtx.ctx.body = 'hello world';
   }

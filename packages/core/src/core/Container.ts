@@ -144,8 +144,9 @@ export class Container {
       handlers.push(instance.beforeHandle);
     });
     return async (ctx: RouterCtx, next: NextFunc): Promise<void> => {
-      ctx.appCtx = this.appCtx;
-      ctx.appCtx.ctx = ctx;
+      const appCtx = Object.create(this.appCtx);
+      appCtx.ctx = ctx;
+      ctx.appCtx = appCtx;
       try {
         for (const handler of handlers) {
           await handler(ctx);
