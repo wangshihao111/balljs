@@ -37,6 +37,7 @@ export async function runDev(opts: { watch?: string[]; entry: string }) {
       shell: true,
       stdio: ['ignore', 'inherit', 'inherit'],
       env: {
+        ...process.env,
         INSIDER_DEV: 'true',
         NODE_ENV: 'development',
       },

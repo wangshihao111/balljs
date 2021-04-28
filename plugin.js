@@ -3,7 +3,7 @@ module.exports = class {
   apply(api) {
     api.addMiddleWares([
       async (ctx, next) => {
-        console.log('test middleware in plugin');
+        // console.log('test middleware in plugin');
         await next();
       },
     ]);

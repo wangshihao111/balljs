@@ -208,3 +208,38 @@ TODO: 补充
 
 - @guku/plugin-socket websocket 插件
 - @guku/plugin-static 静态资源插件
+
+### properties
+
+#### 概述
+
+用于设置 app 运行时的某些变量，默认使用 src/app.properties。
+
+如果需要根据环境启用不同的 properties，则可以指定 SERVER_APP_ENV=xxx，应用会自动加载 app.xxx.properties。并用加载到的 app.xxx.properties 与 app.properties 合并。
+
+### 引用
+
+在 Controller 或 Service 中，使用 Value 装饰器获取。例如：
+
+在 app.properties 中设置一下内容
+
+```properties
+appName=myAppName
+server.port=9800
+server.host=0.0.0.0
+```
+
+```ts
+@Service()
+class MyService {
+  @Value('appName')
+  appName!: string;
+
+  @Value('server')
+  server!: { port: number; host: string };
+
+  echo() {
+    console.log(this.appName, this.server);
+  }
+}
+```

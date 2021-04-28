@@ -6,6 +6,7 @@ import {
   autoWired,
   AppCtx,
   Post,
+  Value,
 } from '@guku/core';
 import { AuthInterceptor } from '../interceptors/AuthInterceptor';
 import { DBService } from '../services/DBService';
@@ -22,12 +23,19 @@ export class IndexController {
   @autoWired(DBService)
   db!: DBService;
 
+  @Value('appName')
+  appName!: string;
+
+  @Value('server')
+  server!: any;
+
   constructor(private appCtx: AppCtx) {
     this.age = 999;
   }
 
   @Get('/hello')
   index(ctx: RouterCtx) {
+    console.log('Value appName', this.appName, this.server);
     console.log(this.appCtx.ctx);
     console.log(
       this.userService,

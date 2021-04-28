@@ -1,7 +1,11 @@
 import globby from 'globby';
 import { resolve } from 'path';
+import fs from 'fs';
 import { flatten, uniq } from 'lodash';
 import { createLogger, isFirstWorker } from '@guku/utils';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import properties from 'properties';
 import { Config } from './Config';
 import {
   CONTROLLER_DECORATOR_KEY,
@@ -15,6 +19,7 @@ import {
   RequestMethodDecoratorValue,
   SERVICE_DECORATOR_KEY,
   AppCtx,
+  getWorkDirectory,
 } from '../utils';
 import { initIoc, inject } from './ioc';
 import { CommonInterceptor } from '../decorators';
@@ -35,6 +40,8 @@ export class Container {
 
   private appCtx: AppCtx;
 
+  private properties: any;
+
   constructor(
     config: Config,
     store: StoreState,
@@ -43,6 +50,7 @@ export class Container {
     this.config = config;
     this.store = store;
     this.loadedControllers = [];
+    this.properties = this.loadProperties();
     this.loadedControllers = this.loadDecorated('controllers');
     this.loadedInterceptors = this.loadDecorated('interceptors');
     this.appCtx = appCtx;
@@ -54,6 +62,10 @@ export class Container {
         {
           provide: 'config',
           useValue: Object.freeze(this.config),
+        },
+        {
+          provide: '__properties',
+          useValue: Object.freeze(this.properties),
         },
       ],
     });
@@ -164,5 +176,29 @@ export class Container {
     globalMethods.forEach(({ name, handler }) => {
       (<any>this.appCtx)[name] = handler;
     });
+  }
+
+  private loadProperties() {
+    const target = `app${
+      process.env.SERVER_APP_ENV
+        ? '.' + process.env.SERVER_APP_ENV.toLowerCase()
+        : ''
+    }.properties`;
+    const loadEnvContent = (file: string): any => {
+      const path = resolve(this.config.cwd, getWorkDirectory(), file);
+      try {
+        const fileContent = fs.readFileSync(path, 'utf8');
+        return properties.parse(fileContent, { namespaces: true });
+      } catch (error) {
+        // nothing
+        return {};
+      }
+    };
+    const baseProps = loadEnvContent('app.properties');
+    const envProps = loadEnvContent(target);
+    return {
+      ...baseProps,
+      ...envProps,
+    };
   }
 }
