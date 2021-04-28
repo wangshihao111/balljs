@@ -209,9 +209,9 @@ TODO: 补充
 - @guku/plugin-socket websocket 插件
 - @guku/plugin-static 静态资源插件
 
-### properties
+## properties
 
-#### 概述
+### 概述
 
 用于设置 app 运行时的某些变量，默认使用 src/app.properties。
 
