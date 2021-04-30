@@ -34,7 +34,7 @@ export class Server {
 
   private config: Config;
 
-  private container: Container;
+  private container!: Container;
 
   private store: StoreState;
 
@@ -54,11 +54,6 @@ export class Server {
       },
     };
     this.config = new Config();
-    this.container = new Container(
-      this.config,
-      this.store,
-      this.options.appCtx
-    );
     this.app = new Koa();
   }
 
@@ -68,6 +63,12 @@ export class Server {
     }
     this.initialized = true;
     await this.initPlugins();
+
+    this.container = new Container(
+      this.config,
+      this.store,
+      this.options.appCtx
+    );
     const router = new Router();
 
     this.container.routesMap.forEach(({ path, method, handler }) => {
