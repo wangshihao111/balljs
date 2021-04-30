@@ -32,28 +32,19 @@ export class Container {
 
   private loadedInterceptors: any[];
 
-  private config;
-
-  private store: StoreState;
-
   public readonly routesMap: any[];
-
-  private appCtx: AppCtx;
 
   private properties: any;
 
   constructor(
-    config: Config,
-    store: StoreState,
-    appCtx: AppCtx = { ctx: {} as any }
+    private config: Config,
+    private store: StoreState,
+    private appCtx: AppCtx = { ctx: {} as any }
   ) {
-    this.config = config;
-    this.store = store;
     this.loadedControllers = [];
     this.properties = this.loadProperties();
     this.loadedControllers = this.loadDecorated('controllers');
     this.loadedInterceptors = this.loadDecorated('interceptors');
-    this.appCtx = appCtx;
     this.registerGlobalMethods();
     initIoc({
       providers: [

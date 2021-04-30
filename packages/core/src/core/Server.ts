@@ -35,13 +35,11 @@ export class Server {
 
   private container: Container;
 
-  private options: ServerOptions;
-
   private store: StoreState;
 
   private server!: http.Server;
 
-  constructor(options: ServerOptions = {}) {
+  constructor(private options: ServerOptions = {}) {
     this.options = options;
     this.store = {
       middleWares: [],
@@ -52,7 +50,6 @@ export class Server {
       },
     };
     this.config = new Config();
-
     this.initPlugins();
     this.container = new Container(
       this.config,

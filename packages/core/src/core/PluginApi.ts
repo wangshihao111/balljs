@@ -15,11 +15,7 @@ import { StoreState } from './Server';
 export type GlobalMethod = () => void;
 
 export class PluginApi {
-  private store: StoreState;
-
-  constructor(store: StoreState) {
-    this.store = store;
-  }
+  constructor(private store: StoreState) {}
 
   /**
    * addMiddleWares 添加一个Koa中间价
