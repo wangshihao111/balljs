@@ -45,7 +45,7 @@ export class Container {
     this.properties = this.loadProperties();
     this.loadedControllers = this.loadDecorated('controllers');
     this.loadedInterceptors = this.loadDecorated('interceptors');
-    this.registerGlobalMethods();
+    this.registerAppCtx();
     initIoc({
       providers: [
         ...this.loadedInterceptors,
@@ -162,10 +162,13 @@ export class Container {
     };
   }
 
-  private registerGlobalMethods() {
-    const { globalMethods = [] } = this.store;
+  private registerAppCtx() {
+    const { globalMethods = [], appCtx } = this.store;
     globalMethods.forEach(({ name, handler }) => {
       (<any>this.appCtx)[name] = handler;
+    });
+    Object.entries(appCtx).forEach(([key, field]) => {
+      this.appCtx[key] = field;
     });
   }
 

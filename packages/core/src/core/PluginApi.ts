@@ -25,13 +25,18 @@ export class PluginApi {
   }
 
   /**
-   * addGlobalMethod 添加一个全局方法，例如模板渲染函数
+   * addAppCtxMethod 添加一个全局方法，例如模板渲染函数
    */
-  public addGlobalMethod(methodConfig: {
+  public addAppCtxMethod(methodConfig: {
     name: string;
     handler: GlobalMethod;
   }) {
     this.store.globalMethods.push(methodConfig);
+  }
+
+  public addAppCtx(config: { name: string; field: any }) {
+    const { name, field } = config;
+    this.store.appCtx[name] = field;
   }
 
   /**

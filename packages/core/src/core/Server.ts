@@ -23,6 +23,7 @@ export interface StoreState {
   controllers: any[];
   middleWares: Application.Middleware[];
   globalMethods: { name: string; handler: GlobalMethod }[];
+  appCtx: any;
   hooks: {
     onInit: any[];
   };
@@ -43,6 +44,7 @@ export class Server {
     this.options = options;
     this.store = {
       middleWares: [],
+      appCtx: {},
       globalMethods: [],
       controllers: [],
       hooks: {
