@@ -1,0 +1,24 @@
+{
+  "name": "@guku/plugin-typeorm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "npx rimraf lib && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+  },
+  "peerDependencies": {
+    "@guku/core": "^1.0.0"
+  },
+  "dependencies": {
+    "typeorm": "^0.2.32"
+  },
+  "files": [
+    "lib"
+  ]
+}

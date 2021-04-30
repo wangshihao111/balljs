@@ -8,6 +8,7 @@ import {
   Post,
   Value,
 } from '@guku/core';
+import { InjectConnection } from '@guku/plugin-typeorm';
 import { AuthInterceptor } from '../interceptors/AuthInterceptor';
 import { DBService } from '../services/DBService';
 import { UserService } from '../services/UserService';
@@ -29,6 +30,9 @@ export class IndexController {
   @Value('server')
   server!: any;
 
+  @InjectConnection('test')
+  connection: any;
+
   constructor(private appCtx: AppCtx) {
     this.age = 999;
   }
@@ -36,7 +40,7 @@ export class IndexController {
   @Get('/hello')
   index(ctx: RouterCtx) {
     console.log('Value appName', this.appName, this.server);
-    console.log(this.appCtx.ctx);
+    console.log(this.appCtx.orm, this.connection);
     console.log(
       this.userService,
       this.db.user,
