@@ -40,8 +40,10 @@ export class Server {
 
   private server!: http.Server;
 
+  private initialized: boolean;
+
   constructor(private options: ServerOptions = {}) {
-    this.options = options;
+    this.initialized = false;
     this.store = {
       middleWares: [],
       appCtx: {},
@@ -52,17 +54,20 @@ export class Server {
       },
     };
     this.config = new Config();
-    this.initPlugins();
     this.container = new Container(
       this.config,
       this.store,
       this.options.appCtx
     );
     this.app = new Koa();
-    this.init();
   }
 
-  private init() {
+  public async init() {
+    if (this.initialized) {
+      throw new Error('Cannot initialize server twice.');
+    }
+    this.initialized = true;
+    await this.initPlugins();
     const router = new Router();
 
     this.container.routesMap.forEach(({ path, method, handler }) => {
@@ -78,14 +83,16 @@ export class Server {
     this.store.hooks.onInit.forEach((handler) => handler(this.server));
   }
 
-  private initPlugins() {
+  private async initPlugins() {
     const plugins = (this.config.userConfig.plugins || [])
       .map(this.loadPlugin)
       .filter(Boolean);
     isFirstWorker() && logger.info(`Loaded ${plugins.length} Plugins.`);
-    plugins.forEach((instance) => {
-      instance.apply(new PluginApi(this.store));
-    });
+    await Promise.all(
+      plugins.map(
+        async (plugin) => await plugin.apply(new PluginApi(this.store))
+      )
+    );
   }
 
   start(): void {

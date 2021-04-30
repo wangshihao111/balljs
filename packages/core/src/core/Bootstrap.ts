@@ -21,12 +21,12 @@ export class Bootstrap {
       throw new Error('You should have at least one worker process.');
     }
     const appCtx: AppCtx = {
-      name: '111',
       ctx: {} as any,
     };
     clusterScheduler
-      .register(() => {
+      .register(async () => {
         const server = new Server({ port: opts.port, appCtx });
+        await server.init();
         server.start();
       })
       .schedule({ workers: workersProcess });

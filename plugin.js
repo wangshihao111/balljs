@@ -7,7 +7,7 @@ module.exports = class {
         await next();
       },
     ]);
-    api.addGlobalMethod({
+    api.addAppCtxMethod({
       name: 'render',
       handler() {
         return 'I am handler';

@@ -58,5 +58,5 @@ export class PluginApi {
 }
 
 export interface IPlugin {
-  apply(api: PluginApi): void;
+  apply(api: PluginApi): Promise<void>;
 }
