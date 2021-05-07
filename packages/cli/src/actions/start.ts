@@ -18,6 +18,7 @@ export async function runStart(): Promise<void> {
     cwd: process.cwd(),
     stdio: ['inherit', 'inherit', 'inherit'],
     env: {
+      ...process.env,
       NODE_ENV: 'production',
     },
   });
