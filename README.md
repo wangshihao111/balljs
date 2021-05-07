@@ -289,3 +289,5 @@ TODO: 补充
 
 - @guku/plugin-socket websocket 插件
 - @guku/plugin-static 静态资源插件
+- @guku/plugin-cors CORS 插件
+- @guku/plugin-typeorm typeorm 插件
