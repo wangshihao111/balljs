@@ -197,17 +197,53 @@ export const MyException = exceptionFactory(
 ```
 
 ### 插件
+框架支持插件机制。
+#### 使用方法
+在src/app.config.ts中的plugins选项中可以进行插件的配置。
+plugins配置项为一个数组，包含了插件列表。
+插件的引用形式可以是字符串、绝对路径或者一个对象。
+如果是字符或绝对路径，则框架内部会去引入该插件并创建实例。如果需要向插件传递参数，请使用 new 来创建一个插件对象。
+如下所示：
+```ts
+import { IConfig } from '@guku/core';
+import PluginSocket from '@guku/plugin-socket';
+import PluginTypeOrm from '@guku/plugin-typeorm';
+import path from 'path';
 
-TODO: 补充。
+export default {
+  plugins: [
+    require.resolve('../plugin.js'),
+    '@guku/plugin-static',
+    '@guku/plugin-cors',
+    new PluginSocket({
+      prefix: '/socket',
+      dirs: [path.resolve(__dirname, './socketControllers')],
+    }),
+    new PluginTypeOrm({ connsConfig: [] }),
+  ],
+} as IConfig;
 
-## 其它
+```
 
-TODO: 补充
+#### 插件格式
+每个插件为一个拥有公共成员 apply 的类。apply 方法会在框架内部自动调用。
+例如我们可以实现一个简单的 CORS 插件：
+```ts
+import { PluginApi } from '@guku/core';
+import cors, { Options } from '@koa/cors';
 
-## 资源
+export type PluginCorsOpts = Options;
 
-- @guku/plugin-socket websocket 插件
-- @guku/plugin-static 静态资源插件
+export default class PluginSocket {
+  constructor(private opts: PluginCorsOpts) {}
+  apply(api: PluginApi) {
+    api.addMiddleWares([cors(this.opts)]);
+  }
+}
+
+```
+
+其中，PluginApi 请参考 API 接口。
 
 ## properties
 
@@ -228,7 +264,7 @@ appName=myAppName
 server.port=9800
 server.host=0.0.0.0
 ```
-
+则可使用如下方式引用：
 ```ts
 @Service()
 class MyService {
@@ -243,3 +279,13 @@ class MyService {
   }
 }
 ```
+
+
+## 其它
+
+TODO: 补充
+
+## 资源
+
+- @guku/plugin-socket websocket 插件
+- @guku/plugin-static 静态资源插件
