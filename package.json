@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepare": "cd packages/core && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node packages/cli/bin/cli dev -w \"src/**/*.* packages/*/lib/**/*.js\" -e src/index",
     "watch": "node scripts/dev.js",
