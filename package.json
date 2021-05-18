@@ -1,11 +1,11 @@
 {
   "name": "balljs",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepare": "npm run build:utils && npm run build:core",
+    "prepare": "npm run prepublish",
     "transpile": "lerna run prepublish",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node packages/cli/bin/cli dev -w \"src/**/*.* packages/*/lib/**/*.js\" -e src/index",
@@ -13,8 +13,8 @@
     "start": "nodemon --exec cross-env MONKEY_DEV=true ts-node src/index",
     "start:prod": "node packages/cli/bin/cli start",
     "build:prod": "node packages/cli/bin/cli build",
-    "build:core": "cd packages/core && yarn prepublish",
-    "build:utils": "cd packages/utils && yarn prepublish"
+    "build:core": "cd packages/core && npm run prepublish",
+    "build:utils": "cd packages/utils && npm run prepublish"
   },
   "keywords": [],
   "workspaces": [

@@ -1,6 +1,6 @@
 {
   "name": "@balljs/plugin-socket",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -14,8 +14,8 @@
     "@types/sockjs": "^0.3.32"
   },
   "dependencies": {
-    "@balljs/core": "^1.0.0",
-    "@balljs/utils": "^1.0.0",
+    "@balljs/core": "^0.0.1",
+    "@balljs/utils": "^0.0.1",
     "sockjs": "^0.3.21",
     "globby": "^11.0.3"
   },
