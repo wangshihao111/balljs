@@ -41,15 +41,25 @@ export class Container {
     private store: StoreState,
     private appCtx: AppCtx = { ctx: {} as any }
   ) {
+    const { userConfig } = config;
     this.loadedControllers = [];
     this.properties = this.loadProperties();
-    this.loadedControllers = this.loadDecorated('controllers');
-    this.loadedInterceptors = this.loadDecorated('interceptors');
+    this.loadedControllers = uniq([
+      ...this.loadDecorated('controllers'),
+      ...(userConfig.controllers || []),
+    ]);
+    this.loadedInterceptors = uniq([
+      ...this.loadDecorated('interceptors'),
+      ...(userConfig.interceptors || []),
+    ]);
     this.registerAppCtx();
     initIoc({
       providers: [
         ...this.loadedInterceptors,
-        ...this.loadDecorated('services'),
+        ...uniq([
+          ...this.loadDecorated('services'),
+          ...(userConfig.services || []),
+        ]),
         {
           provide: 'config',
           useValue: Object.freeze(this.config),

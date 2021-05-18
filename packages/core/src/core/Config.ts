@@ -2,6 +2,7 @@
   配置文件格式：
   {
     plugins: [],
+    paths: []
   }
  */
 import path from 'path';
@@ -14,8 +15,11 @@ export interface IConfigPaths {
 }
 
 export interface IConfig {
-  plugins: string[];
+  plugins?: string[];
   paths?: IConfigPaths;
+  controllers?: any[];
+  interceptors?: any[];
+  services?: any[];
 }
 
 export class Config {
