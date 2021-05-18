@@ -95,7 +95,7 @@ export class IndexController {
 
 ### Interceptor 拦截器
 
-对于某些路由，我们可能需要进行权限校验，用于拦截掉一些请求，那么我们可以使用拦截器解决；拦截器为使用@Interceptor 装饰，并实现了 CommonInterceptor 接口的类。将其放入 interceptors 文件夹中，框架会自动加载并注册。
+对于某些路由，我们可能需要进行权限校验，用于拦截掉一些请求，那么我们可以使用拦截器解决；拦截器为使用@Interceptor 装饰的类，并实现了 CommonInterceptor 接口的类。将其放入 interceptors 文件夹中，框架会自动加载并注册。
 
 拦截器里可以对请求做任何处理，甚至提前结束请求。
 
@@ -115,13 +115,13 @@ import {
 
 @Interceptor()
 export class AuthInterceptor implements CommonInterceptor {
-  async beforeHandle(ctx: RouterCtx): Promise<void> {
+  async request(ctx: RouterCtx): Promise<void> {
     if (!ctx.query.name) {
       throw new BadRequestException();
     }
   }
   // 暂未实现，敬请期待。
-  afterHandle() {}
+  response() {}
 }
 ```
 
@@ -149,7 +149,7 @@ export class IndexController {
 }
 ```
 
-此时，该控制器的所有路由处理之前，都会先执行拦截器的 beforeHandle 函数。
+此时，该控制器的所有路由处理之前，都会先执行拦截器的 request 函数。
 
 ### Exceptions 异常机制
 
@@ -171,14 +171,14 @@ import {
 
 @Interceptor()
 export class AuthInterceptor implements CommonInterceptor {
-  async beforeHandle(ctx: RouterCtx): Promise<void> {
+  async request(ctx: RouterCtx): Promise<void> {
     if (!ctx.query.name) {
       // 在拦截器中直接抛出异常，该异常会被框架处理并返回到前端。
       throw new BadRequestException();
     }
   }
   // 暂未实现，敬请期待。
-  afterHandle() {}
+  response() {}
 }
 ```
 
@@ -205,16 +205,16 @@ plugins配置项为一个数组，包含了插件列表。
 如果是字符或绝对路径，则框架内部会去引入该插件并创建实例。如果需要向插件传递参数，请使用 new 来创建一个插件对象。
 如下所示：
 ```ts
-import { IConfig } from '@guku/core';
-import PluginSocket from '@guku/plugin-socket';
-import PluginTypeOrm from '@guku/plugin-typeorm';
+import { IConfig } from '@balljs/core';
+import PluginSocket from '@balljs/plugin-socket';
+import PluginTypeOrm from '@balljs/plugin-typeorm';
 import path from 'path';
 
 export default {
   plugins: [
     require.resolve('../plugin.js'),
-    '@guku/plugin-static',
-    '@guku/plugin-cors',
+    '@balljs/plugin-static',
+    '@balljs/plugin-cors',
     new PluginSocket({
       prefix: '/socket',
       dirs: [path.resolve(__dirname, './socketControllers')],
@@ -229,7 +229,7 @@ export default {
 每个插件为一个拥有公共成员 apply 的类。apply 方法会在框架内部自动调用。
 例如我们可以实现一个简单的 CORS 插件：
 ```ts
-import { PluginApi } from '@guku/core';
+import { PluginApi } from '@balljs/core';
 import cors, { Options } from '@koa/cors';
 
 export type PluginCorsOpts = Options;
@@ -287,7 +287,7 @@ TODO: 补充
 
 ## 资源
 
-- @guku/plugin-socket websocket 插件
-- @guku/plugin-static 静态资源插件
-- @guku/plugin-cors CORS 插件
-- @guku/plugin-typeorm typeorm 插件
+- @balljs/plugin-socket websocket 插件
+- @balljs/plugin-static 静态资源插件
+- @balljs/plugin-cors CORS 插件
+- @balljs/plugin-typeorm typeorm 插件

@@ -141,10 +141,16 @@ export class Container {
 
   private createRequestHandler(interceptors: any[], oldHandler: any) {
     const handlers: any[] = [];
-    // TODO: process afterHooks
+    const responseHandler: any[] = [];
+    // TODO: process response interceptor
     interceptors.forEach((i) => {
       const instance = inject<CommonInterceptor>(i);
-      handlers.push(instance.beforeHandle);
+      if (instance.request) {
+        handlers.push(instance.request.bind(instance));
+      }
+      if (instance.response) {
+        responseHandler.push(instance.response.bind(instance));
+      }
     });
     return async (ctx: RouterCtx, next: NextFunc): Promise<void> => {
       const appCtx = Object.create(this.appCtx);

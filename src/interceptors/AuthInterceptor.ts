@@ -7,12 +7,12 @@ import {
 
 @Interceptor()
 export class AuthInterceptor implements CommonInterceptor {
-  async beforeHandle(ctx: RouterCtx): Promise<void> {
+  async request(ctx: RouterCtx): Promise<void> {
     if (!ctx.query.name) {
       throw new BadRequestException();
     }
   }
-  afterHandle() {
+  response() {
     throw new Error('Method not implemented.');
   }
 }
