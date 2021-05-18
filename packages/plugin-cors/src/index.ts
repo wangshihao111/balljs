@@ -1,4 +1,4 @@
-import { PluginApi } from '@guku/core';
+import { PluginApi } from '@balljs/core';
 import cors, { Options } from '@koa/cors';
 
 export type PluginCorsOpts = Options;

@@ -1,4 +1,4 @@
-import { Controller, Get, RouterCtx, autoWired, AppCtx } from '@guku/core';
+import { Controller, Get, RouterCtx, autoWired, AppCtx } from '@balljs/core';
 import { AppService } from '../services/AppService';
 
 @Controller('/')

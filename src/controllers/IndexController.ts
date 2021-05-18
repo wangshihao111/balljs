@@ -7,8 +7,8 @@ import {
   AppCtx,
   Post,
   Value,
-} from '@guku/core';
-import { InjectConnection } from '@guku/plugin-typeorm';
+} from '@balljs/core';
+import { InjectConnection } from '@balljs/plugin-typeorm';
 import { AuthInterceptor } from '../interceptors/AuthInterceptor';
 import { DBService } from '../services/DBService';
 import { UserService } from '../services/UserService';

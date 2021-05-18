@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import kill from 'treekill';
-import { createLogger } from '@guku/utils';
+import { createLogger } from '@balljs/utils';
 import { cwd } from '../utils';
 
 let initial = true;

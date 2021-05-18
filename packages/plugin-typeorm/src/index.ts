@@ -1,4 +1,4 @@
-import { PluginApi } from '@guku/core';
+import { PluginApi } from '@balljs/core';
 import { Connection, ConnectionOptions, createConnection } from 'typeorm';
 import { setConnections } from './store';
 

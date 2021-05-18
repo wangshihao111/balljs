@@ -1,4 +1,4 @@
-import { IConfig } from '@guku/core';
+import { IConfig } from '@balljs/core';
 
 const appConfig: IConfig = {
   plugins: [],

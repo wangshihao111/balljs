@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import Router from '@koa/router';
-import { createLogger, isFirstWorker } from '@guku/utils';
+import { createLogger, isFirstWorker } from '@balljs/utils';
 import http from 'http';
 import https from 'https';
 import { Config } from './Config';

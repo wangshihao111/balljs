@@ -1,4 +1,4 @@
-import { createLogger } from '@guku/utils';
+import { createLogger } from '@balljs/utils';
 import { spawn } from 'child_process';
 import { copy, readFile, writeFile } from 'fs-extra';
 import path from 'path';

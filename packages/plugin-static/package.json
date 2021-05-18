@@ -1,5 +1,5 @@
 {
-  "name": "@guku/plugin-static",
+  "name": "@balljs/plugin-static",
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
@@ -14,7 +14,8 @@
     "@types/koa-static": "^4.0.1"
   },
   "dependencies": {
-    "@guku/utils": "^1.0.0",
+    "@balljs/core": "^1.0.0",
+    "@balljs/utils": "^1.0.0",
     "koa-static": "^5.0.0"
   },
   "files": [

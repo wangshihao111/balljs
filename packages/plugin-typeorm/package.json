@@ -1,5 +1,5 @@
 {
-  "name": "@guku/plugin-typeorm",
+  "name": "@balljs/plugin-typeorm",
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
@@ -13,7 +13,7 @@
   "devDependencies": {
   },
   "peerDependencies": {
-    "@guku/core": "^1.0.0"
+    "@balljs/core": "^1.0.0"
   },
   "dependencies": {
     "typeorm": "^0.2.32"

@@ -2,7 +2,7 @@ import globby from 'globby';
 import { resolve } from 'path';
 import fs from 'fs';
 import { flatten, uniq } from 'lodash';
-import { createLogger, isFirstWorker } from '@guku/utils';
+import { createLogger, isFirstWorker } from '@balljs/utils';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import properties from 'properties';

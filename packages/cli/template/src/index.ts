@@ -1,3 +1,3 @@
-import { Bootstrap } from '@guku/core';
+import { Bootstrap } from '@balljs/core';
 
 Bootstrap.start({ port: 3060, workersProcess: 3 });

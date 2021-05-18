@@ -1,4 +1,4 @@
-import { createLogger, WORKER_ENV_NTH } from '@guku/utils';
+import { createLogger, WORKER_ENV_NTH } from '@balljs/utils';
 import cluster from 'cluster';
 import { cpus } from 'os';
 

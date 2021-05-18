@@ -1,13 +1,13 @@
-import { IConfig } from '@guku/core';
-import PluginSocket from '@guku/plugin-socket';
-import PluginTypeOrm from '@guku/plugin-typeorm';
+import { IConfig } from '@balljs/core';
+import PluginSocket from '@balljs/plugin-socket';
+import PluginTypeOrm from '@balljs/plugin-typeorm';
 import path from 'path';
 
 export default {
   plugins: [
     require.resolve('../plugin.js'),
-    '@guku/plugin-static',
-    '@guku/plugin-cors',
+    '@balljs/plugin-static',
+    '@balljs/plugin-cors',
     new PluginSocket({
       prefix: '/socket',
       dirs: [path.resolve(__dirname, './socketControllers')],

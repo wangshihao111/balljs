@@ -1,8 +1,8 @@
-import { PluginApi } from '@guku/core';
+import { PluginApi } from '@balljs/core';
 import { Connection, createServer } from 'sockjs';
 import globby from 'globby';
 import path from 'path';
-import { createLogger } from '@guku/utils';
+import { createLogger } from '@balljs/utils';
 import {
   SOCKET_CONTROLLER_ACTION_DECORATOR_KEY,
   SOCKET_CONTROLLER_DECORATOR_KEY,

@@ -1,4 +1,4 @@
-import { autoWired, Service } from '@guku/core';
+import { autoWired, Service } from '@balljs/core';
 import { DBService } from './DBService';
 
 @Service()

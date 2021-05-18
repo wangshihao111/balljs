@@ -3,7 +3,7 @@ import {
   CommonInterceptor,
   Interceptor,
   RouterCtx,
-} from '@guku/core';
+} from '@balljs/core';
 
 @Interceptor()
 export class AuthInterceptor implements CommonInterceptor {

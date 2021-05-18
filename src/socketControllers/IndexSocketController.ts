@@ -1,4 +1,4 @@
-import { Action, SocketController } from '@guku/plugin-socket';
+import { Action, SocketController } from '@balljs/plugin-socket';
 
 @SocketController('demo')
 export class IndexSocketController {

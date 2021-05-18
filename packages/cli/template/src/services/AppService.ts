@@ -1,4 +1,4 @@
-import { Service } from '@guku/core';
+import { Service } from '@balljs/core';
 
 @Service()
 export class AppService {

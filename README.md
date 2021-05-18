@@ -1,4 +1,4 @@
-# GUKU
+# balljs
 
 一个简单实用的 Nodejs 库。用于便捷的创建服务端应用。
 
@@ -9,13 +9,13 @@
 - 安装 CLI
 
 ```sh
-npm install -g @guku/cli # yarn add @guku/core
+npm install -g @balljs/cli # yarn add @balljs/core
 ```
 
 ### 创建项目
 
 ```bash
-guku create server
+balljs create server
 ```
 
 ### 运行项目
@@ -33,7 +33,7 @@ yarn dev
 控制器用于路由的处理。每个控制器使用@Controller 装饰，定义前缀，并将其放入 controllers 文件夹，框架会自动加载控制器。例如：
 
 ```ts
-import { Controller } from '@guku/core';
+import { Controller } from '@balljs/core';
 
 @Controller('/') // 定义路径前缀
 export class IndexController {}
@@ -42,7 +42,7 @@ export class IndexController {}
 控制器内可以有 n 个路由处理方法，路由方法需要使用方法装饰器进行装饰：@Post, @Get, @Put, @Delete, @Patch, 参数为路由路径，例如：
 
 ```ts
-import { Controller, RouterCtx, Get } from '@guku/core';
+import { Controller, RouterCtx, Get } from '@balljs/core';
 
 @Controller('/demo') // 定义路径前缀
 export class IndexController {
@@ -61,7 +61,7 @@ export class IndexController {
   使用 @Service 装饰器进行装饰，并将其放到 services 文件夹。框架会自动加载并注册服务。例如：
 
 ```ts
-import { Service } from '@guku/core';
+import { Service } from '@balljs/core';
 
 @Service()
 export class UserService {
@@ -76,7 +76,7 @@ export class UserService {
 在我们的 controller 中可以使用 @autoWired 进行自动装载：
 
 ```ts
-import { Controller, RouterCtx, Get } from '@guku/core';
+import { Controller, RouterCtx, Get } from '@balljs/core';
 import { UserService } from '../Services/UserService';
 
 @Controller('/demo') // 定义路径前缀
@@ -111,7 +111,7 @@ import {
   CommonInterceptor,
   Interceptor,
   RouterCtx,
-} from '@guku/core';
+} from '@balljs/core';
 
 @Interceptor()
 export class AuthInterceptor implements CommonInterceptor {
@@ -130,7 +130,7 @@ export class AuthInterceptor implements CommonInterceptor {
 在需要拦截的控制器上加上@useInterceptor 装饰器，并传入拦截器数组：
 
 ```ts
-import { Controller, RouterCtx, useInterceptor, Get } from '@guku/core';
+import { Controller, RouterCtx, useInterceptor, Get } from '@balljs/core';
 import { UserService } from '../Services/UserService';
 import { AuthInterceptor } from '../interceptors/AuthInterceptor';
 
@@ -160,14 +160,14 @@ export class IndexController {
 使用方法：在控制器路由处理函数或拦截器中直接抛出即可，框架会进行处理并返回到前端。例如：
 
 ```ts
-import { BadRequestException } from '@guku/core';
+import { BadRequestException } from '@balljs/core';
 
 import {
   BadRequestException,
   CommonInterceptor,
   Interceptor,
   RouterCtx,
-} from '@guku/core';
+} from '@balljs/core';
 
 @Interceptor()
 export class AuthInterceptor implements CommonInterceptor {
@@ -187,7 +187,7 @@ export class AuthInterceptor implements CommonInterceptor {
 我们可以使用 exceptionFactory 生成异常类，如下所示：
 
 ```ts
-import { exceptionFactory } from '@guku/core';
+import { exceptionFactory } from '@balljs/core';
 
 export const MyException = exceptionFactory(
   'MyException', // name

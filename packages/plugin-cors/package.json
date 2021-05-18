@@ -1,5 +1,5 @@
 {
-  "name": "@guku/plugin-cors",
+  "name": "@balljs/plugin-cors",
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
@@ -14,6 +14,7 @@
     "@types/koa__cors": "^3.0.2"
   },
   "dependencies": {
+    "@balljs/core": "^1.0.0",
     "@koa/cors": "^3.1.0"
   },
   "files": [

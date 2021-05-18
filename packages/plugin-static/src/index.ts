@@ -1,7 +1,7 @@
-import { PluginApi } from '@guku/core';
+import { PluginApi } from '@balljs/core';
 import koaStatic, { Options } from 'koa-static';
 import path from 'path';
-import { createLogger, isFirstWorker } from '@guku/utils';
+import { createLogger, isFirstWorker } from '@balljs/utils';
 
 const logger = createLogger('PluginStatic');
 
