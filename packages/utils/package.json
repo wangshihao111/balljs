@@ -1,7 +1,7 @@
 {
   "name": "@balljs/utils",
   "version": "0.0.1",
-  "description": "",
+  "description": "balljs utils",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "rimraf lib && tsc",
@@ -15,5 +15,12 @@
   },
   "devDependencies": {
     "@types/rimraf": "^3.0.0"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   }
 }

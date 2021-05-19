@@ -1,7 +1,7 @@
 {
   "name": "@balljs/plugin-typeorm",
   "version": "0.0.1",
-  "description": "",
+  "description": "typeorm plugin of balljs",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "npx rimraf lib && tsc",
@@ -21,5 +21,9 @@
   },
   "files": [
     "lib"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
 }

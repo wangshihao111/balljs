@@ -1,7 +1,7 @@
 {
   "name": "@balljs/core",
   "version": "0.0.1",
-  "description": "",
+  "description": "A server side framework",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "rimraf lib && tsc",
@@ -15,6 +15,8 @@
   "dependencies": {
     "@balljs/utils": "^0.0.1",
     "@koa/router": "^10.0.0",
+    "@types/koa": "^2.13.1",
+    "@types/koa__router": "^8.0.4",
     "chalk": "^4.1.0",
     "globby": "^11.0.3",
     "koa": "^2.13.1",
@@ -28,10 +30,15 @@
   },
   "devDependencies": {
     "@types/globby": "^9.1.0",
-    "@types/koa": "^2.13.1",
     "@types/koa-bodyparser": "^4.3.0",
-    "@types/koa__router": "^8.0.4",
     "@types/lodash": "^4.14.168",
     "@types/reflect-metadata": "^0.1.0"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   }
 }
