@@ -11,8 +11,9 @@ export class AuthInterceptor implements CommonInterceptor {
     if (!ctx.query.name) {
       throw new BadRequestException();
     }
+    ctx.body = 'interceptor';
   }
   response() {
-    throw new Error('Method not implemented.');
+    // nothing todo
   }
 }
