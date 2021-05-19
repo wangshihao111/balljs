@@ -17,6 +17,7 @@
     "build:utils": "cd packages/utils && npm run prepublish"
   },
   "keywords": [],
+  "homepage": "https://github.com/wangshihao111/balljs",
   "workspaces": [
     "packages/*"
   ],

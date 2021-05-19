@@ -10,6 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "homepage": "https://github.com/wangshihao111/balljs",
   "devDependencies": {
     "@types/sockjs": "^0.3.32"
   },
