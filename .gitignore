@@ -3,3 +3,4 @@ lib/
 dist/
 yarn-error.log
 *.tgz
+package-lock.json
