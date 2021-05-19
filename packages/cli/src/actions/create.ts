@@ -30,6 +30,6 @@ export const runCreate = async ({ name }: { name: string }) => {
   });
   logger.success('Install dependencies successfully.');
   logger.success(
-    `Successfully create project.\nThen you can run:\n\tcd ${name}\n\tyarn dev`
+    `Successfully create project.\nThen you can run:\n\tcd ${name}\n\tyarn install \n\t yarn dev`
   );
 };
