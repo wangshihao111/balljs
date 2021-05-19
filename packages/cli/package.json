@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "bin": {
-    "balljs": "bin/cli.js"
+    "ball": "bin/cli.js"
   },
   "author": "",
   "license": "MIT",
