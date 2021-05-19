@@ -4,13 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "ball build",
-    "dev": "ball dev",
+    "prepublish": "npx rimraf lib && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "bin": {
-    "ball": "bin/cli.js"
+    "balljs": "bin/cli.js"
   },
   "author": "",
   "license": "MIT",
