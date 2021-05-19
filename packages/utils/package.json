@@ -1,6 +1,6 @@
 {
   "name": "@balljs/utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "balljs utils",
   "main": "lib/index.js",
   "scripts": {
@@ -11,8 +11,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "rimraf": "^3.0.2",
-    "chalk": "^4.1.0"
+    "chalk": "^4.1.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@types/rimraf": "^3.0.0"

@@ -1,6 +1,6 @@
 {
   "name": "@balljs/plugin-typeorm",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "typeorm plugin of balljs",
   "main": "lib/index.js",
   "scripts": {

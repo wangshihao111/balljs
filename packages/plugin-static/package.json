@@ -1,6 +1,6 @@
 {
   "name": "@balljs/plugin-static",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "static plugin of balljs",
   "main": "lib/index.js",
   "scripts": {
@@ -15,8 +15,8 @@
     "@types/koa-static": "^4.0.1"
   },
   "dependencies": {
-    "@balljs/core": "^0.0.1",
-    "@balljs/utils": "^0.0.1",
+    "@balljs/core": "^0.0.2",
+    "@balljs/utils": "^0.0.2",
     "koa-static": "^5.0.0"
   },
   "files": [

@@ -1,6 +1,6 @@
 {
   "name": "@balljs/plugin-cors",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "cors plugin of balljs",
   "main": "lib/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "@types/koa__cors": "^3.0.2"
   },
   "dependencies": {
-    "@balljs/core": "^0.0.1",
+    "@balljs/core": "^0.0.2",
     "@koa/cors": "^3.1.0"
   },
   "files": [
