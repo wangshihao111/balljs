@@ -11,14 +11,12 @@
   "author": "",
   "license": "MIT",
   "homepage": "https://github.com/wangshihao111/balljs",
-  "devDependencies": {
-  },
   "dependencies": {
     "@balljs/core": "^0.0.1",
     "@balljs/utils": "^0.0.1",
     "@types/sockjs": "^0.3.32",
-    "sockjs": "^0.3.21",
-    "globby": "^11.0.3"
+    "globby": "^11.0.3",
+    "sockjs": "^0.3.21"
   },
   "files": [
     "lib"

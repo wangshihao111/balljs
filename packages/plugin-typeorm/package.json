@@ -11,8 +11,6 @@
   "author": "",
   "license": "MIT",
   "homepage": "https://github.com/wangshihao111/balljs",
-  "devDependencies": {
-  },
   "peerDependencies": {
     "@balljs/core": "^0.0.1"
   },
