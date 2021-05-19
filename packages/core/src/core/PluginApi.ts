@@ -47,6 +47,21 @@ export class PluginApi {
   }
 
   /**
+   * addControllers
+   */
+  public addInterceptors(interceptors: any[]) {
+    this.store.interceptors.push(...interceptors);
+  }
+
+  /**
+   *
+   * @param services
+   */
+  public addServices(services: any[]) {
+    this.store.services.push(...services);
+  }
+
+  /**
    * onInit
    */
   public onInit(handler: (server: http.Server | https.Server) => void): void {

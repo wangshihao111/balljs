@@ -21,6 +21,8 @@ export interface ServerOptions {
 
 export interface StoreState {
   controllers: any[];
+  interceptors: any[];
+  services: any[];
   middleWares: Application.Middleware[];
   globalMethods: { name: string; handler: GlobalMethod }[];
   appCtx: any;
@@ -49,6 +51,8 @@ export class Server {
       appCtx: {},
       globalMethods: [],
       controllers: [],
+      interceptors: [],
+      services: [],
       hooks: {
         onInit: [],
       },

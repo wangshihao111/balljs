@@ -47,10 +47,12 @@ export class Container {
     this.loadedControllers = uniq([
       ...this.loadDecorated('controllers'),
       ...(userConfig.controllers || []),
+      ...store.controllers,
     ]);
     this.loadedInterceptors = uniq([
       ...this.loadDecorated('interceptors'),
       ...(userConfig.interceptors || []),
+      ...store.interceptors,
     ]);
     this.registerAppCtx();
     initIoc({
@@ -59,6 +61,7 @@ export class Container {
         ...uniq([
           ...this.loadDecorated('services'),
           ...(userConfig.services || []),
+          ...store.services,
         ]),
         {
           provide: 'config',
@@ -171,6 +174,9 @@ export class Container {
           await handler(ctx);
         }
         await oldHandler(ctx, next);
+        for (const handler of responseHandler) {
+          await handler(ctx);
+        }
       } catch (error) {
         ctx.status = error.status || 400;
         ctx.body = error.message;
