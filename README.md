@@ -9,18 +9,19 @@
 - 安装 CLI
 
 ```sh
-npm install -g @balljs/cli # yarn add @balljs/core
+npm install -g @balljs/cli # yarn add global @balljs/cli
 ```
 
 ### 创建项目
 
 ```bash
-balljs create server
+ball create demo
 ```
 
 ### 运行项目
 
 ```bash
+cd demo
 yarn dev
 ```
 
@@ -197,13 +198,17 @@ export const MyException = exceptionFactory(
 ```
 
 ### 插件
+
 框架支持插件机制。
+
 #### 使用方法
-在src/app.config.ts中的plugins选项中可以进行插件的配置。
-plugins配置项为一个数组，包含了插件列表。
+
+在 src/app.config.ts 中的 plugins 选项中可以进行插件的配置。
+plugins 配置项为一个数组，包含了插件列表。
 插件的引用形式可以是字符串、绝对路径或者一个对象。
 如果是字符或绝对路径，则框架内部会去引入该插件并创建实例。如果需要向插件传递参数，请使用 new 来创建一个插件对象。
 如下所示：
+
 ```ts
 import { IConfig } from '@balljs/core';
 import PluginSocket from '@balljs/plugin-socket';
@@ -222,12 +227,13 @@ export default {
     new PluginTypeOrm({ connsConfig: [] }),
   ],
 } as IConfig;
-
 ```
 
 #### 插件格式
+
 每个插件为一个拥有公共成员 apply 的类。apply 方法会在框架内部自动调用。
 例如我们可以实现一个简单的 CORS 插件：
+
 ```ts
 import { PluginApi } from '@balljs/core';
 import cors, { Options } from '@koa/cors';
@@ -240,7 +246,6 @@ export default class PluginSocket {
     api.addMiddleWares([cors(this.opts)]);
   }
 }
-
 ```
 
 其中，PluginApi 请参考 API 接口。
@@ -264,7 +269,9 @@ appName=myAppName
 server.port=9800
 server.host=0.0.0.0
 ```
+
 则可使用如下方式引用：
+
 ```ts
 @Service()
 class MyService {
@@ -279,7 +286,6 @@ class MyService {
   }
 }
 ```
-
 
 ## 其它
 
