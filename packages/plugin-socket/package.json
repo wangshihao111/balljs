@@ -1,6 +1,6 @@
 {
   "name": "@balljs/plugin-socket",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "license": "MIT",
   "homepage": "https://github.com/wangshihao111/balljs",
   "dependencies": {
-    "@balljs/core": "^0.0.2",
+    "@balljs/core": "^0.0.3",
     "@balljs/utils": "^0.0.2",
     "@types/sockjs": "^0.3.32",
     "globby": "^11.0.3",
