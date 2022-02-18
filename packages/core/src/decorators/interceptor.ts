@@ -1,8 +1,8 @@
 import {
   INTERCEPTOR_DECORATOR_KEY,
-  RouterCtx,
   USE_INTERCEPTOR_DECORATOR_KEY,
 } from '../utils';
+import { RouterCtx } from '../types';
 
 export function Interceptor() {
   return (target: any) => {

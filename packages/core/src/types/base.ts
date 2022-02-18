@@ -1,15 +1,7 @@
-import Router from '@koa/router';
-import { Next, ParameterizedContext } from 'koa';
+import { Next } from 'koa';
+import { RouterCtx } from './context';
 
 export type RequestMethods = 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH';
-
-export type RouterCtx = ParameterizedContext<
-  any,
-  Router.RouterParamContext<any, any>,
-  any
-> & {
-  appCtx: AppCtx;
-};
 
 export type NextFunc = Next;
 
@@ -18,7 +10,6 @@ export interface RequestMethodDecoratorValue {
   path: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export type AppCtx = {
   ctx: RouterCtx;
 } & Record<string, any>;

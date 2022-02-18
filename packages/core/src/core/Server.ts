@@ -8,7 +8,7 @@ import { Container } from './Container';
 import { GlobalMethod, PluginApi } from './PluginApi';
 import Application from 'koa';
 import bodyParser from 'koa-bodyparser';
-import { AppCtx } from '../utils';
+import { AppCtx } from '../types';
 
 const logger = createLogger('Server');
 

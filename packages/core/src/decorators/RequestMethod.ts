@@ -1,8 +1,6 @@
-import {
-  RequestMethods,
-  REQUEST_METHOD_DECORATOR_KEY,
-  RequestMethodDecoratorValue,
-} from '../utils';
+import { REQUEST_METHOD_DECORATOR_KEY } from '../utils';
+
+import { RequestMethodDecoratorValue, RequestMethods } from '../types';
 
 function decoratorFactory(method: RequestMethods) {
   return (path: string) => (

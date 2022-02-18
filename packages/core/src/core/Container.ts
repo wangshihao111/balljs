@@ -12,15 +12,18 @@ import {
   INTERCEPTOR_DECORATOR_KEY,
   importDecorated,
   getUrlPath,
-  NextFunc,
-  RouterCtx,
   USE_INTERCEPTOR_DECORATOR_KEY,
   REQUEST_METHOD_DECORATOR_KEY,
-  RequestMethodDecoratorValue,
   SERVICE_DECORATOR_KEY,
-  AppCtx,
   getWorkDirectory,
 } from '../utils';
+
+import {
+  RequestMethodDecoratorValue,
+  RouterCtx,
+  NextFunc,
+  AppCtx,
+} from '../types';
 import { initIoc, inject } from './ioc';
 import { CommonInterceptor } from '../decorators';
 import { StoreState } from './Server';
@@ -111,7 +114,6 @@ export class Container {
     const routesMap: { path: string; method: string; handler: any }[] = [];
     this.loadedControllers.forEach((Controller) => {
       if (!Reflect.hasOwnMetadata(CONTROLLER_DECORATOR_KEY, Controller)) {
-        console.log(Controller);
         throw new Error('Invalid Controller.');
       }
       const basePath = Reflect.getMetadata(
@@ -177,7 +179,7 @@ export class Container {
         for (const handler of responseHandler) {
           await handler(ctx);
         }
-      } catch (error) {
+      } catch (error: any) {
         ctx.status = error.status || 400;
         ctx.body = error.message;
       }

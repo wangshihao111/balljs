@@ -1,4 +1,4 @@
-import { AppCtx } from '../utils';
+import { AppCtx } from '../types';
 import { ClusterScheduler, WorkerProcessType } from './ClusterScheduler';
 import { Server } from './Server';
 
