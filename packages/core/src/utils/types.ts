@@ -22,3 +22,5 @@ export interface RequestMethodDecoratorValue {
 export type AppCtx = {
   ctx: RouterCtx;
 } & Record<string, any>;
+
+export type ObjectType = Record<string | number, any>;

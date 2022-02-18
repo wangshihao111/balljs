@@ -1,5 +1,6 @@
-import { inject } from '../core';
+// import { inject } from '../core';
 import { VALUE_DECORATOR_KEY } from '../utils';
+import { injectValue } from '../utils/injections';
 
 export function Value(valueKey: string, defaultValue?: string) {
   return (target: any, key: string) => {
@@ -8,7 +9,7 @@ export function Value(valueKey: string, defaultValue?: string) {
         get() {
           let value = Reflect.getMetadata(VALUE_DECORATOR_KEY, target, key);
           if (!value) {
-            value = inject<any>('__properties')?.[valueKey];
+            value = injectValue(valueKey);
             Reflect.defineMetadata(
               VALUE_DECORATOR_KEY,
               value || defaultValue,
