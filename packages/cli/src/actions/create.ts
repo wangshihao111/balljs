@@ -19,7 +19,7 @@ export const runCreate = async ({ name }: { name: string }) => {
   logger.info('Installing dependencies...');
   await new Promise((resolve, reject) => {
     const child = spawn(`yarn`, {
-      cwd: process.cwd(),
+      cwd: dest,
       shell: true,
       stdio: ['ignore', 'inherit', 'inherit'],
     });
@@ -30,6 +30,6 @@ export const runCreate = async ({ name }: { name: string }) => {
   });
   logger.success('Install dependencies successfully.');
   logger.success(
-    `Successfully create project.\nThen you can run:\n\tcd ${name}\n\tyarn install \n\t yarn dev`
+    `Successfully create project.\nThen you can run:\ncd ${name}\nyarn install \n yarn dev`
   );
 };
